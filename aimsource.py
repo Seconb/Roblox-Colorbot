@@ -72,7 +72,7 @@ screenshot["width"] = CAM_FOV
 screenshot["height"] = CAM_FOV
 center = CAM_FOV / 2
 
-audiodir = os.path.join(sdir, "audio")
+audiodir = os.path.join(sdir, "audios")
 
 
 def audio(wavname):
