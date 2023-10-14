@@ -33,14 +33,13 @@ config.read(config_file_path)
 def loadsettings():
 
     global A1M_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, A1M_OFFSET_Y, A1M_OFFSET_X, A1M_SPEED_X, A1M_SPEED_Y
-    global COLOR, upper, lower, A1M_FOV
+    global upper, lower, A1M_FOV
 
     A1M_KEY_STRING = config.get("Config", "A1M_KEY")
     if "win32con" in A1M_KEY_STRING:
         A1M_KEY = eval(A1M_KEY_STRING, {"win32con": win32con})
     else:
         A1M_KEY = str(A1M_KEY_STRING)
-    COLOR = config.get("Config", "COLOR")
     SWITCH_MODE_KEY = config.get("Config", "SWITCH_MODE_KEY")
     FOV_KEY_UP = config.get("Config", "FOV_KEY_UP")
     FOV_KEY_DOWN = config.get("Config", "FOV_KEY_DOWN")
@@ -50,21 +49,8 @@ def loadsettings():
     A1M_OFFSET_X = int(config.get("Config", "A1M_OFFSET_X"))
     A1M_SPEED_X = float(config.get("Config", "A1M_SPEED_X"))
     A1M_SPEED_Y = float(config.get("Config", "A1M_SPEED_Y"))
-    if COLOR.lower() == "purple":
-        upper = np.array([155, 255, 255], dtype="uint8")
-        lower = np.array([130, 50, 195], dtype="uint8")
-    if COLOR.lower() == "yellow":
-        upper = np.array([38, 255, 203], dtype="uint8")
-        lower = np.array([30, 255, 201], dtype="uint8")
-    if COLOR.lower() == "red":
-        # prototype1 upper = np.array([179, 244, 255], dtype='uint8')
-        # lower = np.array([0, 91, 195], dtype='uint8')
-        # SHIT PROTO upper = np.array([179, 244, 255], dtype='uint8')
-        # lower = np.array([0, 91, 195], dtype='uint8')
-        # upper = np.array([0, 255, 255], dtype='uint8')
-        # lower = np.array([0, 174, 16], dtype='uint8')
-        upper = np.array([4, 255, 255], dtype="uint8")
-        lower = np.array([0, 255, 255], dtype="uint8")
+    upper = np.array([38, 255, 203], dtype="uint8")
+    lower = np.array([30, 255, 201], dtype="uint8")
 
 
 def save():
@@ -150,15 +136,6 @@ class trb0t:
 
 def print_banner(b0t: trb0t):
     os.system("cls")
-    colorm = ""
-    if COLOR.lower() == "red":
-        colorm = f"{Fore.RED}{COLOR}{Style.RESET_ALL}"
-    elif COLOR.lower() == "yellow":
-        colorm = f"{Fore.YELLOW}{COLOR}{Style.RESET_ALL}"
-    elif COLOR.lower() == "purple":
-        colorm = f"{Fore.MAGENTA}{COLOR}{Style.RESET_ALL}"
-    else:
-        colorm = str(COLOR)
     print(Style.BRIGHT + Fore.CYAN + """ AMBATUAIM v1.5 """ + Style.RESET_ALL)
     print("====== Controls ======")
     print("Activate a1mb0t      :", Fore.YELLOW + str(A1M_KEY) + Style.RESET_ALL)
@@ -192,7 +169,6 @@ def print_banner(b0t: trb0t):
         + str(A1M_OFFSET_Y)
         + Style.RESET_ALL,
     )
-    print(f"Enemy Color          : {colorm}" + Style.RESET_ALL)
     print(
         "A1m Activated        :",
         (Fore.GREEN if b0t.a1mtoggled else Fore.RED)
