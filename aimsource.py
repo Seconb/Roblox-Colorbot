@@ -14,7 +14,6 @@ import ctypes
 import time
 
 switchmodes = ["hold", "toggle"]
-mods = ["slow", "medium", "fast", "burst"]
 
 
 class FoundEnemy(Exception):
