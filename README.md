@@ -7,7 +7,7 @@ Usage Tutorial:
 
 https://i.imgur.com/Wxs9JKy.png
 
-[img]https://i.imgur.com/IAFsqwl.png
+https://i.imgur.com/IAFsqwl.png
 
 
 
