@@ -53,14 +53,6 @@ def loadsettings():
     lower = np.array([30, 255, 201], dtype="uint8")
 
 
-def save():
-    config.set("Config", "CAM_FOV", str(CAM_FOV))
-    config.set("Config", "A1M_SPEED_X", str(A1M_SPEED_X))
-    config.set("Config", "A1M_SPEED_Y", str(A1M_SPEED_Y))
-    with open(config_file_path, "w") as configfile:
-        config.write(configfile)
-
-
 sct = mss.mss()
 
 loadsettings()
