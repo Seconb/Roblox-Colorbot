@@ -176,7 +176,7 @@ if __name__ == "__main__":
             audio("fovdown.wav")
             print_banner(b0t)
 
-        time.sleep(0.01)
+        time.sleep(0.1)
 
         if BINDMODE.lower() == "win32" or BINDMODE.lower() == "win32api" or BINDMODE.lower() == "win":
             if lclc():
