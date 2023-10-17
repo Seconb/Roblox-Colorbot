@@ -68,7 +68,7 @@ audiodir = os.path.join(sdir, "audios")
 
 def audio(wavname):
     audiopath = os.path.join(audiodir, wavname)
-    wwinsound.PlaySound(audiopath, winsound.SND_FILENAME | winsound.SND_ASYNC)
+    winsound.PlaySound(audiopath, winsound.SND_FILENAME | winsound.SND_ASYNC)
 
 
 def lclc():
