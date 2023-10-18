@@ -7,6 +7,8 @@ https://streamable.com/xcbfez
 
 Usage Tutorial:
 
+- Make ROBLOX fullscreen
+
 - Set settings to be as follows (doesn't need to be exact, these are just what I recommend):
 
 https://i.imgur.com/Wxs9JKy.png
@@ -14,9 +16,7 @@ https://i.imgur.com/Wxs9JKy.png
 https://i.imgur.com/IAFsqwl.png
 
 
-
 The enemy outline is actually necessary other settings don't matter as much.
-
 
 
 You can enter the settings menu from the gear in the bottom left of the menu.
@@ -26,7 +26,7 @@ You can enter the settings menu from the gear in the bottom left of the menu.
 Config Guide:
 
 
-
+- IF THE AIMBOT IS SHAKY YOUR SPEED IS TOO HIGH, IF IT STRAIGHT UP CRASHES OUT OF NOWHERE THEN YOUR FOV IS TOO HIGH (CAM OR A1M FOV)
 
 - For keybinds, if you're just using a button on your keyboard like A, B, C, Shift, or something like CTRL+ALT+Q, then set "BINDMODE" to keyboard
 
