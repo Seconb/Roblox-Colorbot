@@ -241,12 +241,12 @@ if __name__ == "__main__":
                     if b0t.switchmode == 1:
                         b0t.a1mtoggle()
                         print_banner(b0t)
-                        winsound.Beep(200, 200)
+                        #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
                         while b0t.a1mtoggled:
                             b0t.process()
                             if lclc():
                                 b0t.a1mtoggle()
-                                winsound.Beep(200, 200)
+                                #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
                                 print_banner(b0t)
             else:
                 if keyboard.is_pressed(A1M_KEY):
@@ -263,12 +263,12 @@ if __name__ == "__main__":
                     if b0t.switchmode == 1:
                         b0t.a1mtoggle()
                         print_banner(b0t)
-                        winsound.Beep(200, 200)
+                        #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
                         while b0t.a1mtoggled:
                             b0t.process()
                             if keyboard.is_pressed(A1M_KEY):
                                 b0t.a1mtoggle()
-                                winsound.Beep(200, 200)
+                                #winsound.Beep(200, 200)  removing beep as its causing crashes, temp fix.
                                 print_banner(b0t)
     except Exception as e:
         print("An error occurred:", e)
