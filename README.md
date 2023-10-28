@@ -1,5 +1,11 @@
-# Arsenal-Colorbot
-A neat little colorbot that uses enemy outlines for Arsenal. Ported from my Valorant colorbot with mouse input method modified.
+# educational purposes
+
+THIS IS A FORK, a modified version of the original. This is a quick solution to crashes, and errors. 
+I forked this repo to add clarity to code, comments, etc so that other developers who want to learn aren't confused or intiminated by code as simple as this.
+This is not maintained and was a spur-of-the-moment type of thing, if you need help learning about code like this you can DM me on discord at befia.
+
+
+## ORIGINAL GUIDE 
 
 Troubleshooting Guide:
 
