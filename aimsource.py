@@ -1,5 +1,5 @@
 import keyboard
-import PIL.ImageGrab
+import PIL.ImageGrab #what the a1mb0t is based on, screen capture.
 import PIL.Image
 import winsound
 import os
@@ -12,29 +12,30 @@ import win32con
 from colorama import Fore, Style, init
 import ctypes
 import time
+#importing all the modules we need to run the code.
 
-switchmodes = ["hold", "toggle"]
+switchmodes = ["hold", "toggle"] #this is a array of [0, 1] where hold is 0, toggle is 1. 
 
 # class FoundEnemy(Exception):
-#    pass
+#    pass (this is a useless class, that is commented out so that if there is a use for it we can use it later)
 
 sdir = os.path.dirname(os.path.abspath(__file__))
-config_file_path = os.path.join(sdir, "config.ini")
+config_file_path = os.path.join(sdir, "config.ini") #how we find the config file.
 
 try:
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser() #this is separating all the config options you set.
     config.optionxform = str
     config.read(config_file_path)
-except Exception as e:
+except Exception as e: #every try: ... except Exception as e: ... is a form of general error catching, the basics.
     print("Error reading configuration:", e)
 
 
-def loadsettings():
+def loadsettings(): #loading the settings, duh.
     global A1M_KEY, SWITCH_MODE_KEY
     global FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV
     global A1M_OFFSET_Y, A1M_OFFSET_X, A1M_SPEED_X, A1M_SPEED_Y
     global upper, lower, A1M_FOV, BINDMODE
-
+    #these are essential variables that show the settings of the application.
     try:
         BINDMODE = config.get("Config", "BINDMODE")
         if (
@@ -71,25 +72,23 @@ def loadsettings():
 sct = mss.mss()
 
 try:
-    loadsettings()
+    loadsettings() #try to catch any errors with the settings maybe a typo or something.
 except Exception as e:
     print("Error loading settings:", e)
 
-screenshot = sct.monitors[1]
+screenshot = sct.monitors[1] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
 screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
 screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
 screenshot["width"] = CAM_FOV
 screenshot["height"] = CAM_FOV
 center = CAM_FOV / 2
 
-audiodir = os.path.join(sdir, "audios")
+audiodir = os.path.join(sdir, "audios") # this is use all our audio files with the code.
 
 try:
-
     def audio(wavname):
         audiopath = os.path.join(audiodir, wavname)
-        winsound.PlaySound(audiopath, winsound.SND_FILENAME | winsound.SND_ASYNC)
-
+        winsound.PlaySound(audiopath, winsound.SND_FILENAME | winsound.SND_ASYNC) #this is how we play the files.
 except Exception as e:
     print("Error setting up audio:", e)
 
@@ -102,13 +101,13 @@ def lclc():
 
 
 class trb0t:
-    def __init__(self):
+    def __init__(self): #initialize the code, first set the variables for default settings.
         self.a1mtoggled = False
-        self.mode = 2
-        self.switchmode = 0
+        self.mode = 2 #modes go from 1-2
+        self.switchmode = 0 #as i said earlier, the array is 0-1, 0 being hold, 1 being toggle. the default is HOLD as you can see.
 
-    def process(self):
-        try:
+    def process(self): #process all images we're capturing
+        try: 
             img = np.array(sct.grab(screenshot))
             hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
             mask = cv2.inRange(hsv, lower, upper)
@@ -130,22 +129,22 @@ class trb0t:
                     y2 = y * A1M_SPEED_Y
                     x2 = int(x2)
                     y2 = int(y2)
-                    ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0)
+                    ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
         except Exception as e:
             print("Error in processing:", e)
 
     def a1mtoggle(self):
         try:
             self.a1mtoggled = not self.a1mtoggled
-            time.sleep(.05) # cooldown
+            time.sleep(.05) # very short cooldown to stop it from thinking we're rapid toggling.
         except Exception as e:
             print("Error toggling A1M:", e)
 
-    def modeswitch(self):
+    def modeswitch(self): #switch the modes from again, the array, from 0 to 1, 0 being hold, 1 being toggle.
         try:
             if self.switchmode == 0:
-                self.switchmode += 1
-                audio("toggle.wav")
+                self.switchmode += 1 # adding so that it looks for 1, which is toggle.
+                audio("toggle.wav") # using the audio function we looked at earlier, which allows us to play a file from the audio dir.
             elif self.switchmode == 1:
                 self.switchmode -= 1
                 audio("hold.wav")
@@ -153,13 +152,13 @@ class trb0t:
             print("Error switching modes:", e)
 
 
-def print_banner(b0t: trb0t):
+def print_banner(b0t: trb0t): #printing into the console, this is just a way to show important information.
     try:
         os.system("cls")
         print(
             Style.BRIGHT
             + Fore.CYAN
-            + """ Seconb Color Aim for Arsenal! """
+            + """ Seconb Color Aim for Arsenal! """ # code modified by taylor
             + Style.RESET_ALL
         )
         print("====== Controls ======")
@@ -205,54 +204,54 @@ def print_banner(b0t: trb0t):
 
 
 if __name__ == "__main__":
-    b0t = trb0t()
+    b0t = trb0t() #the main class we made earlier
     try:
-        print_banner(b0t)
+        print_banner(b0t) #to update information or print initial info.
         while True:
             if SWITCH_MODE_KEY != "disabled" and keyboard.is_pressed(SWITCH_MODE_KEY):
-                b0t.modeswitch()
-                print_banner(b0t)
+                b0t.modeswitch() #switching the mode if the user presses the switch mode key AND its not disabled.
+                print_banner(b0t) #updating the information
             if FOV_KEY_UP != "disabled" and keyboard.is_pressed(FOV_KEY_UP):
-                A1M_FOV += 5
+                A1M_FOV += 5 #same thing as before, just adding 5 increments to the fov.
                 audio("fovup.wav")
                 print_banner(b0t)
             if FOV_KEY_DOWN != "disabled" and keyboard.is_pressed(FOV_KEY_DOWN):
-                A1M_FOV -= 5
+                A1M_FOV -= 5 #same thing as before just removing 5 increments
                 audio("fovdown.wav")
                 print_banner(b0t)
 
-            time.sleep(0.1)
+            time.sleep(0.1) #.1s cooldown
 
             if (
                 BINDMODE.lower() == "win32"
                 or BINDMODE.lower() == "win32api"
-                or BINDMODE.lower() == "win"
-            ):
-                if lclc():
-                    if b0t.switchmode == 0:
-                        while lclc():
-                            if not b0t.a1mtoggled:
-                                b0t.a1mtoggle()
-                                print_banner(b0t)
-                                while b0t.a1mtoggled:
-                                    b0t.process()
-                                    if not lclc():
-                                        b0t.a1mtoggle()
-                                        print_banner(b0t)
-                    if b0t.switchmode == 1:
-                        b0t.a1mtoggle()
+                or BINDMODE.lower() == "win" #make all strings lowercase just in case if someone in config typed it out as WIN32API, which the code wouldn't recognize.
+            ): # this is mostly for the mouse buttons.
+                if lclc(): #if user is holding down on the key or a key.
+                    if b0t.switchmode == 0: #if mode is on [**0**, 1] (means if 0) which is hold.
+                        while lclc(): #while the user is holding the key.
+                            if not b0t.a1mtoggled: 
+                                b0t.a1mtoggle() #and if the aim isn't already activated, activate it.
+                                print_banner(b0t) #update info
+                                while b0t.a1mtoggled: 
+                                    b0t.process() #while it is on/activated THEN process all screen capture, note that it doesn't process information unless activated.
+                                    if not lclc(): 
+                                        b0t.a1mtoggle() #if user stops holding the key, it'll turn off the colorbot.
+                                        print_banner(b0t) #update info.
+                    if b0t.switchmode == 1: #if mode is on [0, **1**] (means if toggled)
+                        b0t.a1mtoggle() # activate it forever until user presses again.
                         print_banner(b0t)
                         #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
-                        while b0t.a1mtoggled:
-                            b0t.process()
+                        while b0t.a1mtoggled: #while it is toggled
+                            b0t.process() # process the images.
                             if lclc():
-                                b0t.a1mtoggle()
+                                b0t.a1mtoggle() # if user presses the button, then deactivate
                                 #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
-                                print_banner(b0t)
+                                print_banner(b0t) #update info
             else:
-                if keyboard.is_pressed(A1M_KEY):
+                if keyboard.is_pressed(A1M_KEY): #else if the user uses keyboard config, then look for keyboard buttons instead.
                     if b0t.switchmode == 0:
-                        while keyboard.is_pressed(A1M_KEY):
+                        while keyboard.is_pressed(A1M_KEY): # SAME EXACT PROCESS AS THE MOUSE KEY PRESSES ABOVE, REFER THERE.
                             if not b0t.a1mtoggled:
                                 b0t.a1mtoggle()
                                 print_banner(b0t)
@@ -261,8 +260,8 @@ if __name__ == "__main__":
                                     if not keyboard.is_pressed(A1M_KEY):
                                         b0t.a1mtoggle()
                                         print_banner(b0t)
-                    if b0t.switchmode == 1:
-                        b0t.a1mtoggle()
+                    if b0t.switchmode == 1: 
+                        b0t.a1mtoggle() # SAME EXACT PROCESS AS THE MOUSE KEY PRESSES ABOVE, REFER THERE.
                         print_banner(b0t)
                         #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
                         while b0t.a1mtoggled:
@@ -272,4 +271,4 @@ if __name__ == "__main__":
                                 #winsound.Beep(200, 200)  removing beep as its causing crashes, temp fix.
                                 print_banner(b0t)
     except Exception as e:
-        print("An error occurred:", e)
+        print("An error occurred:", e) #the end, DM befia on discord if you need clarity. Info by, duh, befia or taylor.
