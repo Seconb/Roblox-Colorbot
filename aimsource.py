@@ -106,7 +106,6 @@ class trb0t:
         self.a1mtoggled = False
         self.mode = 2
         self.switchmode = 0
-        self.toggle_cooldown = False #adding a 1 second cooldown
 
     def process(self):
         try:
@@ -137,11 +136,8 @@ class trb0t:
 
     def a1mtoggle(self):
         try:
-            if not self.toggle_cooldown:
-                self.a1mtoggled = not self.a1mtoggled
-                self.toggle_cooldown = True
-                time.sleep(1)
-                self.toggle_cooldown = False
+            self.a1mtoggled = not self.a1mtoggled
+            time.sleep(.05) # cooldown
         except Exception as e:
             print("Error toggling A1M:", e)
 
