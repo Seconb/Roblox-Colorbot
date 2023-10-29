@@ -158,7 +158,7 @@ def print_banner(b0t: trb0t): #printing into the console, this is just a way to 
         print(
             Style.BRIGHT
             + Fore.CYAN
-            + """ Seconb Color Aim for Arsenal! """ # code modified by taylor
+            + """ Seconb Color Aim for Arsenal! """
             + Style.RESET_ALL
         )
         print("====== Controls ======")
@@ -246,7 +246,7 @@ if __name__ == "__main__":
                             b0t.process() # process the images.
                             if lclc():
                                 b0t.a1mtoggle() # if user presses the button, then deactivate
-                                #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
+                                #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix. - taylor
                                 print_banner(b0t) #update info
             else:
                 if keyboard.is_pressed(A1M_KEY): #else if the user uses keyboard config, then look for keyboard buttons instead.
@@ -263,7 +263,7 @@ if __name__ == "__main__":
                     if b0t.switchmode == 1: 
                         b0t.a1mtoggle() # SAME EXACT PROCESS AS THE MOUSE KEY PRESSES ABOVE, REFER THERE.
                         print_banner(b0t)
-                        #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
+                        #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix. - taylor
                         while b0t.a1mtoggled:
                             b0t.process()
                             if keyboard.is_pressed(A1M_KEY):
@@ -271,4 +271,4 @@ if __name__ == "__main__":
                                 #winsound.Beep(200, 200)  removing beep as its causing crashes, temp fix.
                                 print_banner(b0t)
     except Exception as e:
-        print("An error occurred:", e) #the end, DM befia on discord if you need clarity. Info by, duh, befia or taylor.
+        print("An error occurred:", e) #the end
