@@ -1,26 +1,23 @@
-import keyboard
-import PIL.ImageGrab #what the a1mb0t is based on, screen capture.
+import keyboard # Library that relates to reading and writing keyboard inputs
+import PIL.ImageGrab # Reads screenshot in the right format (mss takes the screenshot)
 import PIL.Image
-import winsound
+import winsound # Beep noises (temp disabled)
 import os
-import mss
+import mss # Takes screenshot
 import configparser
-import cv2
-import numpy as np
-import win32api
+import cv2 # Reads through screenshot
+import numpy as np # Works with CV2
+import win32api # Windows API that I just use for mouse button keybinds and mouse movement to an enemy
 import win32con
-from colorama import Fore, Style, init
-import ctypes
-import time
+from colorama import Fore, Style, init # Makes the colorful text in the console
+import ctypes # Also Windows API to move the mouse
+import time # Allows for specific time delays and such
 #importing all the modules we need to run the code.
 
 switchmodes = ["hold", "toggle"] #this is a array of [0, 1] where hold is 0, toggle is 1. 
 
-# class FoundEnemy(Exception):
-#    pass (this is a useless class, that is commented out so that if there is a use for it we can use it later)
-
-sdir = os.path.dirname(os.path.abspath(__file__))
-config_file_path = os.path.join(sdir, "config.ini") #how we find the config file.
+sdir = os.path.dirname(os.path.abspath(__file__)) #Finding current directory where the script is being run in
+config_file_path = os.path.join(sdir, "config.ini") # Searching for the file called config.ini to read settings
 
 try:
     config = configparser.ConfigParser() #this is separating all the config options you set.
@@ -63,8 +60,11 @@ def loadsettings(): #loading the settings, duh.
         A1M_OFFSET_X = int(config.get("Config", "A1M_OFFSET_X"))
         A1M_SPEED_X = float(config.get("Config", "A1M_SPEED_X"))
         A1M_SPEED_Y = float(config.get("Config", "A1M_SPEED_Y"))
-        upper = np.array([38, 255, 203], dtype="uint8")
-        lower = np.array([30, 255, 201], dtype="uint8")
+        upper = np.array([38, 255, 203], dtype="uint8") # The upper and lower ranges defined are the colors that the aimbot will detect and shoot at
+        lower = np.array([30, 255, 201], dtype="uint8") # It's basically a group of a VERY specific shade of yellow (in this case) that it will shoot at and nothing else. The format is HSV, which differs from RGB.
+        # For more experienced users, to change the upper and lower, then use this tool: https://github.com/hariangr/HsvRangeTool 
+        # Take a screenshot of an enemy with the highlight color you want and get the range and add that here in place of the current upper and lower
+    
     except Exception as e:
         print("Error loading settings:", e)
 
@@ -88,14 +88,14 @@ audiodir = os.path.join(sdir, "audios") # this is use all our audio files with t
 try:
     def audio(wavname):
         audiopath = os.path.join(audiodir, wavname)
-        winsound.PlaySound(audiopath, winsound.SND_FILENAME | winsound.SND_ASYNC) #this is how we play the files.
+        winsound.PlaySound(audiopath, winsound.SND_FILENAME | winsound.SND_ASYNC) #this is how we play audio files. (temp disabled)
 except Exception as e:
     print("Error setting up audio:", e)
 
 
 def lclc():
     try:
-        return win32api.GetAsyncKeyState(A1M_KEY) < 0
+        return win32api.GetAsyncKeyState(A1M_KEY) < 0 #checking if the aim key is pressed (mouse buttons)
     except Exception as e:
         print("Error checking key state:", e)
 
@@ -108,22 +108,22 @@ class trb0t:
 
     def process(self): #process all images we're capturing
         try: 
-            img = np.array(sct.grab(screenshot))
-            hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-            mask = cv2.inRange(hsv, lower, upper)
-            kernel = np.ones((3, 3), np.uint8)
-            dilated = cv2.dilate(mask, kernel, iterations=5)
-            thresh = cv2.threshold(dilated, 60, 255, cv2.THRESH_BINARY)[1]
+            img = np.array(sct.grab(screenshot)) #grab screenshot
+            hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) #grab hsv color format
+            mask = cv2.inRange(hsv, lower, upper) # create a mask of only the enemy colors
+            kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
+            dilated = cv2.dilate(mask, kernel, iterations=5) # dilation makes objects appear larger for the aimbot
+            thresh = cv2.threshold(dilated, 60, 255, cv2.THRESH_BINARY)[1] # threshold
             (contours, hierarchy) = cv2.findContours(
-                thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE
+                thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE # find contours
             )
-            contour_img = np.zeros_like(img)
-            if len(contours) != 0:
+            contour_img = np.zeros_like(img) # create final image with contours, areas of the enemies if any
+            if len(contours) != 0: # if enemies are on screen: (or if there are contours of enemies on screen)
                 contour = max(contours, key=cv2.contourArea)
-                topmost = tuple(contour[contour[:, :, 1].argmin()][0])
-                x = topmost[0] - center + A1M_OFFSET_X
+                topmost = tuple(contour[contour[:, :, 1].argmin()][0]) #finds the highest contour vertically (highest point of the enemy, their head)
+                x = topmost[0] - center + A1M_OFFSET_X # calculating the perfect center of the enemy's head by offsetting it a set amount of pixels
                 y = topmost[1] - center + A1M_OFFSET_Y
-                distance = np.sqrt(x**2 + y**2)
+                distance = np.sqrt(x**2 + y**2) # basic distance in a 2d plane. calculated using pythagorean theorem.
                 if distance <= A1M_FOV:
                     x2 = x * A1M_SPEED_X
                     y2 = y * A1M_SPEED_Y
@@ -152,9 +152,9 @@ class trb0t:
             print("Error switching modes:", e)
 
 
-def print_banner(b0t: trb0t): #printing into the console, this is just a way to show important information.
+def print_banner(b0t: trb0t): #Printing the information
     try:
-        os.system("cls")
+        os.system("cls") # First clearing the terminal, to then re-print with the new information. Note the colorama formatting with styling and colors!
         print(
             Style.BRIGHT
             + Fore.CYAN
@@ -208,6 +208,7 @@ if __name__ == "__main__":
     try:
         print_banner(b0t) #to update information or print initial info.
         while True:
+            # under each if statement, we first check if the key is set to disabled (if it is disabled, then it will not function. this allows the user to disable keys they don't wish to use.
             if SWITCH_MODE_KEY != "disabled" and keyboard.is_pressed(SWITCH_MODE_KEY):
                 b0t.modeswitch() #switching the mode if the user presses the switch mode key AND its not disabled.
                 print_banner(b0t) #updating the information
@@ -220,7 +221,7 @@ if __name__ == "__main__":
                 audio("fovdown.wav")
                 print_banner(b0t)
 
-            time.sleep(0.1) #.1s cooldown
+            time.sleep(0.1) #.1s cooldown as a way of preventing lag and mispresses
 
             if (
                 BINDMODE.lower() == "win32"
