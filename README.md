@@ -1,11 +1,14 @@
-# educational purposes
+# EDUCATIONAL PURPOSES
 
-THIS IS A FORK, a modified version of the original. This is a quick solution to crashes, and errors. 
-I forked this repo to add clarity to code, comments, etc so that other developers who want to learn aren't confused or intiminated by code as simple as this.
-This is not maintained and was a spur-of-the-moment type of thing, if you need help learning about code like this you can DM me on discord at befia.
+This project is currently being maintained slightly, but is meant primarily to be used as a way to learn.
+It will not be maintained forever.
+The original project was made by Seconb then modified by befia who you can add on Discord with that username.
+They made changes including:
+- Basic (temporary) bug fixes (The beeps were removed because they caused crashing for random users)
+- Added comments to explain code functions
+- Removed unnecessary code
 
-
-## ORIGINAL GUIDE 
+## FULL GUIDE
 
 Troubleshooting Guide:
 
