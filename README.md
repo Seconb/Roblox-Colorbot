@@ -12,6 +12,8 @@ They made changes including:
 
 This project is protected by copyright, changes made must be approved by me through Github.
 
+I've already issued a DMCA takedown to a user who was advertising a copied version without credit to YouTube that also included an IP logger.
+
 ## FULL GUIDE
 
 Troubleshooting Guide:
