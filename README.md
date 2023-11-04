@@ -8,6 +8,10 @@ They made changes including:
 - Added comments to explain code functions
 - Removed unnecessary code
 
+# COPYRIGHT:
+
+This project is protected by copyright, changes made must be approved by me through Github.
+
 ## FULL GUIDE
 
 Troubleshooting Guide:
