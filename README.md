@@ -24,6 +24,8 @@ Usage Tutorial:
 
 - Make ROBLOX fullscreen
 
+- DO NOT USE WITH VALORANT, ANY EAC OR BE PROTECTED GAMES, OR FACEIT OPEN
+
 - Set settings to be as follows (doesn't need to be exact, these are just what I recommend):
 
 https://i.imgur.com/Wxs9JKy.png
