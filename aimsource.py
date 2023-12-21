@@ -1,7 +1,6 @@
 import keyboard # Library that relates to reading and writing keyboard inputs
 import PIL.ImageGrab # Reads screenshot in the right format (mss takes the screenshot)
 import PIL.Image
-import winsound # Beep noises (temp disabled)
 import os
 import mss # Takes screenshot
 import configparser
@@ -28,10 +27,7 @@ except Exception as e: #every try: ... except Exception as e: ... is a form of g
 
 
 def loadsettings(): #loading the settings, duh.
-    global A1M_KEY, SWITCH_MODE_KEY
-    global FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV
-    global A1M_OFFSET_Y, A1M_OFFSET_X, A1M_SPEED_X, A1M_SPEED_Y
-    global upper, lower, A1M_FOV, BINDMODE
+    global A1M_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, A1M_OFFSET_Y, A1M_OFFSET_X, A1M_SPEED_X, A1M_SPEED_Y, upper, lower, A1M_FOV, BINDMODE, COLOR, colorname
     #these are essential variables that show the settings of the application.
     try:
         BINDMODE = config.get("Config", "BINDMODE")
@@ -60,11 +56,24 @@ def loadsettings(): #loading the settings, duh.
         A1M_OFFSET_X = int(config.get("Config", "A1M_OFFSET_X"))
         A1M_SPEED_X = float(config.get("Config", "A1M_SPEED_X"))
         A1M_SPEED_Y = float(config.get("Config", "A1M_SPEED_Y"))
-        upper = np.array([38, 255, 203], dtype="uint8") # The upper and lower ranges defined are the colors that the aimbot will detect and shoot at
-        lower = np.array([30, 255, 201], dtype="uint8") # It's basically a group of a VERY specific shade of yellow (in this case) that it will shoot at and nothing else. The format is HSV, which differs from RGB.
-        # For more experienced users, to change the upper and lower, then use this tool: https://github.com/hariangr/HsvRangeTool 
-        # Take a screenshot of an enemy with the highlight color you want and get the range and add that here in place of the current upper and lower
-    
+        COLOR = config.get("Config", "COLOR")
+        if COLOR.lower() == "yellow":
+            colorname = Fore.YELLOW
+            upper = np.array([38, 255, 203], dtype="uint8") # The upper and lower ranges defined are the colors that the aimbot will detect and shoot at
+            lower = np.array([30, 255, 201], dtype="uint8") # It's basically a group of a VERY specific shade of yellow (in this case) that it will shoot at and nothing else. The format is HSV, which differs from RGB.
+        if COLOR.lower() == "blue":
+            colorname = Fore.BLUE
+            upper = np.array([123, 255, 217], dtype="uint8")
+            lower = np.array([113, 206, 189], dtype="uint8")
+        if COLOR.lower() == "pink" or COLOR.lower() == "magenta" or COLOR.lower() == "purple":
+            colorname = Fore.MAGENTA
+            upper = np.array([150, 255, 201], dtype="uint8")
+            lower = np.array([150, 255, 200], dtype="uint8")
+        if COLOR.lower() == "green":
+            colorname = Fore.GREEN
+            upper = np.array([60, 255, 201], dtype="uint8")
+            lower = np.array([60, 255, 201], dtype="uint8")
+
     except Exception as e:
         print("Error loading settings:", e)
 
@@ -82,15 +91,6 @@ screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
 screenshot["width"] = CAM_FOV
 screenshot["height"] = CAM_FOV
 center = CAM_FOV / 2
-
-audiodir = os.path.join(sdir, "audios") # this is use all our audio files with the code.
-
-try:
-    def audio(wavname):
-        audiopath = os.path.join(audiodir, wavname)
-        winsound.PlaySound(audiopath, winsound.SND_FILENAME | winsound.SND_ASYNC) #this is how we play audio files. (temp disabled)
-except Exception as e:
-    print("Error setting up audio:", e)
 
 
 def lclc():
@@ -130,6 +130,7 @@ class trb0t:
                     x2 = int(x2)
                     y2 = int(y2)
                     ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
+                    
         except Exception as e:
             print("Error in processing:", e)
 
@@ -144,10 +145,8 @@ class trb0t:
         try:
             if self.switchmode == 0:
                 self.switchmode += 1 # adding so that it looks for 1, which is toggle.
-                audio("toggle.wav") # using the audio function we looked at earlier, which allows us to play a file from the audio dir.
             elif self.switchmode == 1:
                 self.switchmode -= 1
-                audio("hold.wav")
         except Exception as e:
             print("Error switching modes:", e)
 
@@ -199,6 +198,10 @@ def print_banner(b0t: trb0t): #Printing the information
             + str(b0t.a1mtoggled)
             + Style.RESET_ALL,
         )
+        print(
+            "Enemy Color          :",
+            str(Style.BRIGHT + colorname + COLOR) + Style.RESET_ALL
+                    )
     except Exception as e:
         print("Error printing banner:", e)
 
@@ -214,11 +217,9 @@ if __name__ == "__main__":
                 print_banner(b0t) #updating the information
             if FOV_KEY_UP != "disabled" and keyboard.is_pressed(FOV_KEY_UP):
                 A1M_FOV += 5 #same thing as before, just adding 5 increments to the fov.
-                audio("fovup.wav")
                 print_banner(b0t)
             if FOV_KEY_DOWN != "disabled" and keyboard.is_pressed(FOV_KEY_DOWN):
                 A1M_FOV -= 5 #same thing as before just removing 5 increments
-                audio("fovdown.wav")
                 print_banner(b0t)
 
             time.sleep(0.1) #.1s cooldown as a way of preventing lag and mispresses
@@ -242,12 +243,10 @@ if __name__ == "__main__":
                     if b0t.switchmode == 1: #if mode is on [0, **1**] (means if toggled)
                         b0t.a1mtoggle() # activate it forever until user presses again.
                         print_banner(b0t)
-                        #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
                         while b0t.a1mtoggled: #while it is toggled
                             b0t.process() # process the images.
                             if lclc():
                                 b0t.a1mtoggle() # if user presses the button, then deactivate
-                                #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
                                 print_banner(b0t) #update info
             else:
                 if keyboard.is_pressed(A1M_KEY): #else if the user uses keyboard config, then look for keyboard buttons instead.
@@ -264,12 +263,10 @@ if __name__ == "__main__":
                     if b0t.switchmode == 1: 
                         b0t.a1mtoggle() # SAME EXACT PROCESS AS THE MOUSE KEY PRESSES ABOVE, REFER THERE.
                         print_banner(b0t)
-                        #winsound.Beep(200, 200) removing beep as its causing crashes, temp fix.
                         while b0t.a1mtoggled:
                             b0t.process()
                             if keyboard.is_pressed(A1M_KEY):
                                 b0t.a1mtoggle()
-                                #winsound.Beep(200, 200)  removing beep as its causing crashes, temp fix.
                                 print_banner(b0t)
     except Exception as e:
         print("An error occurred:", e) #the end, DM befia on discord if you need clarity. Info by, duh, befia or taylor.
