@@ -13,7 +13,7 @@ I've already issued a DMCA takedown to a user who was advertising a copied versi
 
 - Windows 10/11 Only!
 
-- Download the Source code, then extract it to a folder. Run firstinstall.bat as admin, then run secondinstall.bat as admin.
+- Download the Source code, then extract it to a folder. Run firstinstall.bat and secondinstall.bat in that order as admin. If you already have Python 3.7+ installed and added to PATH then skip firstinstall.bat and only use secondinstall.bat.
 
 - Enable "Enemy Color Outlines" in Arsenal settings
 
