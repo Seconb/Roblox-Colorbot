@@ -11,6 +11,10 @@ I've already issued a DMCA takedown to a user who was advertising a copied versi
 
 # USAGE GUIDE
 
+- Windows 10/11 Only!
+
+- Download the Source code, then extract it to a folder. Run firstinstall.bat as admin, then run secondinstall.bat as admin.
+
 - Enable "Enemy Color Outlines" in Arsenal settings
 
 - Drag each R G B slide in the settings all the way to the right, then back to the left to fix a bug in Arsenal.
