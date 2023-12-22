@@ -27,6 +27,8 @@ I've already issued a DMCA takedown to a user who was advertising a copied versi
 
 - Do not contact me on Discord with your troubles. Only use the "Issues" tab in this GitHub. I will not take any longer than maybe a few minutes to attempt to help you, and that is final.
 
+- If the installer fails at firstinstall.bat, open "Services" and make sure you can Start Background Intelligence Transfer Service. (If it isn't there or is disabled, then you may have a modified/"optimized" version of Windows and will have to solve this.)
+
 - Aim shaky? Lower your speed
   
 - Crashing? Screen record your screen and include the program's GUI. Send the error to the "Issues" tab in a new issue on this GitHub page.
