@@ -9,11 +9,11 @@ This project is protected by copyright; changes made must be approved by me thro
 
 I've already issued a DMCA takedown to a user who was advertising a copied version without credit to YouTube that also included an IP logger.
 
-# USAGE GUIDE
+# USAGE GUIDE (From the source)
 
 - Windows 10/11 Only!
 
-- Download the Source code, then extract it to a folder. Run firstinstall.bat and secondinstall.bat in that order as admin. If you already have Python 3.7+ installed and added to PATH then skip firstinstall.bat and only use secondinstall.bat. firstinstall.bat is currently broken so just go to Python.org and download it yourself until I get around to fixing it. Check "Add Python.exe to PATH" then click install then run secondinstall.bat.
+- Download the Source code, then extract it to a folder. Run install.bat as admin.
 
 - Enable "Enemy Color Outlines" in Arsenal settings
 
@@ -22,6 +22,8 @@ I've already issued a DMCA takedown to a user who was advertising a copied versi
 - Change them to the color you choose in the config.ini. Your options are Green, Yellow, Pink/Magenta/Purple and Blue. Capitalization is unimportant as long as you spell the color correctly.
 
 - Note: When using pink/magenta/purple, make sure that you change the crosshair color as the default is the same color as the enemies. Otherwise, the aimbot's not gonna work.
+
+- Once you set the config with the color and did the color in Arsenal settings, open aimsource.py.
 
 # TROUBLESHOOTING
 
