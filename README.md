@@ -11,7 +11,7 @@ I've already issued a DMCA takedown to a user who was advertising a copied versi
 
 # USAGE GUIDE (From the source)
 
-- Windows 10/11 Only!
+- Windows 10/11 Only! May have issues on some stretched or otherwise unusual resolutions (i.e 1152x852 or 1366x768). 1080p, 1440p, or 4k is recommended. Mouse Acceleration should be turned off for best results.
 
 - Download the Source code, then extract it to a folder. Run installer.bat as admin. YOU WILL PROBABLY NEED TO TURN OFF WINDOWS DEFENDER, ITS A FALSE POSITIVE NOT A VIRUS YOU CAN READ THE SOURCE CODE ITS OPEN. After that you can run the .py
 
