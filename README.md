@@ -7,7 +7,7 @@ It will not be maintained forever. Keep in mind that, while currently undetected
 
 - Windows 10/11 Only! May have issues on some stretched or otherwise unusual resolutions (i.e 1152x852 or 1366x768). 1080p, 1440p, or 4k is recommended. Mouse Acceleration should be turned off for best results.
 
-- Download the Source code, then extract it to a folder. Run installer.bat as admin. YOU WILL PROBABLY NEED TO TURN OFF WINDOWS DEFENDER, ITS A FALSE POSITIVE NOT A VIRUS YOU CAN READ THE SOURCE CODE ITS OPEN. After that you can run the .py
+- Download the Source code, then extract it to a folder. Run installer.bat as admin. YOU WILL PROBABLY NEED TO TURN OFF WINDOWS DEFENDER, ITS A FALSE POSITIVE NOT A VIRUS YOU CAN READ THE SOURCE CODE ITS OPEN. After that you can run the .py. If you have issues installing Python this way or turning off Defender/other anti-virus, follow the second bullet point in "TROUBLESHOOTING" (scroll down!)
 
 - Enable "Enemy Color Outlines" in Arsenal settings
 
@@ -23,7 +23,7 @@ It will not be maintained forever. Keep in mind that, while currently undetected
 
 - Do not contact me on Discord with your troubles. Only use the "Issues" tab in this GitHub. I will not take any longer than maybe a few minutes to attempt to help you, and that is final.
 
-- If the installer fails at installer.bat, download Python: https://www.python.org/ftp/python/3.11.7/python-3.11.7-amd64.exe . After opening that, check "Add Python.exe to PATH" before installing **REALLY IMPORTANT**. Then, open cmd (command prompt) as admin and run:
+- ***If the installer fails at installer.bat, download Python: https://www.python.org/ftp/python/3.11.7/python-3.11.7-amd64.exe . After opening that, check "Add Python.exe to PATH" before installing **REALLY IMPORTANT**. Then, open cmd (command prompt) as admin and run:
     - pip install Pillow mss configparser opencv-python numpy colorama pywin32
 
 - Aim shaky? Lower your speed
