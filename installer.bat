@@ -21,7 +21,7 @@ cd /d "%~dp0"
 echo Installing Requirements...
 
 :: List of packages to install
-set PACKAGES=keyboard Pillow mss configparser opencv-python numpy colorama pywin32
+set PACKAGES=keyboard Pillow mss configparser opencv-python numpy colorama pywin32 pygetwindow
 
 :: Install each package silently
 for %%i in (%PACKAGES%) do (
