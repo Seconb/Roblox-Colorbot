@@ -24,7 +24,7 @@ It will not be maintained forever. Keep in mind that, while currently undetected
 - Do not contact me on Discord with your troubles. Only use the "Issues" tab in this GitHub. I will not take any longer than maybe a few minutes to attempt to help you, and that is final.
 
 - ***If the installer fails at installer.bat, download Python: https://www.python.org/ftp/python/3.11.7/python-3.11.7-amd64.exe . After opening that, check "Add Python.exe to PATH" before installing **REALLY IMPORTANT**. Then, open cmd (command prompt) as admin and run:
-    - pip install Pillow mss configparser opencv-python numpy colorama pywin32
+    - pip install Pillow mss configparser opencv-python numpy colorama pywin32 pygetwindow
 
 - Aim shaky? Lower your speed
   
