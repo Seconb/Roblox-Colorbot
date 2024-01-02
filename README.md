@@ -1,7 +1,7 @@
 # EDUCATIONAL PURPOSES
 
 This project is currently being maintained slightly, but is meant primarily to be used as a way to learn.
-It will not be maintained forever.
+It will not be maintained forever. Keep in mind that, while currently undetected by Arsenal or Roblox's Hyperion anti-cheat, this status is not guaranteed forever. I, the developer, hold no responsibility for bans caused by this software.
 
 # COPYRIGHT:
 (Note: Written with the help of ChatGPT)
