@@ -33,7 +33,7 @@ def rbxfocused():
         else:
             return False
     except Exception as e:
-        print("Exception checking active window!")
+        print("Exception checking active window:", e)
         return False
 
 def loadsettings(): #loading the settings, duh.
@@ -88,20 +88,18 @@ def loadsettings(): #loading the settings, duh.
         print("Error loading settings:", e)
 
 
-sct = mss.mss()
-
 try:
     loadsettings() #try to catch any errors with the settings maybe a typo or something.
 except Exception as e:
     print("Error loading settings:", e)
 
-if rbxfocused():
-    screenshot = sct.monitors[1] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
-    screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
-    screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
-    screenshot["width"] = CAM_FOV
-    screenshot["height"] = CAM_FOV
-    center = CAM_FOV / 2
+sct = mss.mss()
+screenshot = sct.monitors[1] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
+screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
+screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
+screenshot["width"] = CAM_FOV
+screenshot["height"] = CAM_FOV
+center = CAM_FOV / 2
 
 
 def lclc():
@@ -118,32 +116,33 @@ class trb0t:
         self.switchmode = 0 #as i said earlier, the array is 0-1, 0 being hold, 1 being toggle. the default is HOLD as you can see.
 
     def process(self): #process all images we're capturing
-        try: 
-            img = np.array(sct.grab(screenshot)) #grab screenshot
-            hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) #grab hsv color format
-            mask = cv2.inRange(hsv, lower, upper) # create a mask of only the enemy colors
-            kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
-            dilated = cv2.dilate(mask, kernel, iterations=5) # dilation makes objects appear larger for the aimbot
-            thresh = cv2.threshold(dilated, 60, 255, cv2.THRESH_BINARY)[1] # threshold
-            (contours, hierarchy) = cv2.findContours(
-                thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE # find contours
-            )
-            contour_img = np.zeros_like(img) # create final image with contours, areas of the enemies if any
-            if len(contours) != 0: # if enemies are on screen: (or if there are contours of enemies on screen)
-                contour = max(contours, key=cv2.contourArea)
-                topmost = tuple(contour[contour[:, :, 1].argmin()][0]) #finds the highest contour vertically (highest point of the enemy, their head)
-                x = topmost[0] - center + A1M_OFFSET_X # calculating the perfect center of the enemy's head by offsetting it a set amount of pixels
-                y = topmost[1] - center + A1M_OFFSET_Y
-                distance = np.sqrt(x**2 + y**2) # basic distance in a 2d plane. calculated using pythagorean theorem.
-                if distance <= A1M_FOV:
-                    x2 = x * A1M_SPEED_X
-                    y2 = y * A1M_SPEED_Y
-                    x2 = int(x2)
-                    y2 = int(y2)
-                    ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
-                    
-        except Exception as e:
-            print("Error in processing:", e)
+        if rbxfocused():
+            try: 
+                img = np.array(sct.grab(screenshot)) #grab screenshot
+                hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) #grab hsv color format
+                mask = cv2.inRange(hsv, lower, upper) # create a mask of only the enemy colors
+                kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
+                dilated = cv2.dilate(mask, kernel, iterations=5) # dilation makes objects appear larger for the aimbot
+                thresh = cv2.threshold(dilated, 60, 255, cv2.THRESH_BINARY)[1] # threshold
+                (contours, hierarchy) = cv2.findContours(
+                    thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE # find contours
+                )
+                contour_img = np.zeros_like(img) # create final image with contours, areas of the enemies if any
+                if len(contours) != 0: # if enemies are on screen: (or if there are contours of enemies on screen)
+                    contour = max(contours, key=cv2.contourArea)
+                    topmost = tuple(contour[contour[:, :, 1].argmin()][0]) #finds the highest contour vertically (highest point of the enemy, their head)
+                    x = topmost[0] - center + A1M_OFFSET_X # calculating the perfect center of the enemy's head by offsetting it a set amount of pixels
+                    y = topmost[1] - center + A1M_OFFSET_Y
+                    distance = np.sqrt(x**2 + y**2) # basic distance in a 2d plane. calculated using pythagorean theorem.
+                    if distance <= A1M_FOV:
+                        x2 = x * A1M_SPEED_X
+                        y2 = y * A1M_SPEED_Y
+                        x2 = int(x2)
+                        y2 = int(y2)
+                        ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
+                        
+            except Exception as e:
+                print("Error in processing:", e)
 
     def a1mtoggle(self):
         try:
