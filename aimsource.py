@@ -11,6 +11,7 @@ import win32con
 from colorama import Fore, Style, init # Makes the colorful text in the console
 import ctypes # Also Windows API to move the mouse
 import time # Allows for specific time delays and such
+import pygetwindow as gw # Only takes screenshots when youre actually playing
 #importing all the modules we need to run the code.
 
 switchmodes = ["hold", "toggle"] #this is a array of [0, 1] where hold is 0, toggle is 1. 
@@ -25,6 +26,15 @@ try:
 except Exception as e: #every try: ... except Exception as e: ... is a form of general error catching, the basics.
     print("Error reading configuration:", e)
 
+def rbxfocused():
+    try:
+        if "Roblox" in gw.getActiveWindow().title:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print("Exception checking active window!")
+        return False
 
 def loadsettings(): #loading the settings, duh.
     global A1M_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, A1M_OFFSET_Y, A1M_OFFSET_X, A1M_SPEED_X, A1M_SPEED_Y, upper, lower, A1M_FOV, BINDMODE, COLOR, colorname
@@ -85,12 +95,13 @@ try:
 except Exception as e:
     print("Error loading settings:", e)
 
-screenshot = sct.monitors[1] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
-screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
-screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
-screenshot["width"] = CAM_FOV
-screenshot["height"] = CAM_FOV
-center = CAM_FOV / 2
+if rbxfocused():
+    screenshot = sct.monitors[1] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
+    screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
+    screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
+    screenshot["width"] = CAM_FOV
+    screenshot["height"] = CAM_FOV
+    center = CAM_FOV / 2
 
 
 def lclc():
