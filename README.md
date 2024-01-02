@@ -4,7 +4,7 @@ This project is currently being maintained slightly, but is meant primarily to b
 It will not be maintained forever.
 
 # COPYRIGHT:
-(Note: Written with the help of ChatGPT because I'm lazy)
+(Note: Written with the help of ChatGPT)
 Copyright 2023
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this Python software and associated documentation files (the software), to deal in the software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, and to permit persons to whom the program is furnished to do so, subject to the following conditions:
