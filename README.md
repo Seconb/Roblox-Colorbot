@@ -17,7 +17,7 @@ Any fork, modification, distribution, or use of the Software that does not adher
 2. Any modification or derivative work based on the Software must be clearly marked and identified as such.
 3. Prior written permission must be obtained from the original author(s) for any commercial use of the Software.
 4. The derivative work is not used commercially or otherwise involved financially
-5. Changes have been made to the code as improvements must be supplied through GitHub. Ergo, if a user wishes to improve it, the changes cannot be made in another repository.
+5. Changes have been made to the code as improvements must be supplied through GitHub. Ergo, if a user wishes to improve it, the changes cannot be made in another repository or download page.
 
 THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
