@@ -66,7 +66,7 @@ def loadsettings(): #loading the settings, duh.
             or BINDMODE.lower() == "k"
             or BINDMODE.lower() == "key"
         ):
-        A1M_KEY = config.get("Config", "A1M_KEY")
+            A1M_KEY = config.get("Config", "A1M_KEY")
         SWITCH_MODE_KEY = config.get("Config", "SWITCH_MODE_KEY")
         FOV_KEY_UP = config.get("Config", "FOV_KEY_UP")
         FOV_KEY_DOWN = config.get("Config", "FOV_KEY_DOWN")
