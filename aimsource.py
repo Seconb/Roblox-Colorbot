@@ -12,19 +12,29 @@ from colorama import Fore, Style, init # Makes the colorful text in the console
 import ctypes # Also Windows API to move the mouse
 import time # Allows for specific time delays and such
 import pygetwindow as gw # Only takes screenshots when youre actually playing
+import requests
+from urllib.request import urlopen
 #importing all the modules we need to run the code.
-
+version = 1 # version number to check for updates
 switchmodes = ["hold", "toggle"] #this is a array of [0, 1] where hold is 0, toggle is 1. 
 
 sdir = os.path.dirname(os.path.abspath(__file__)) #Finding current directory where the script is being run in
 config_file_path = os.path.join(sdir, "config.ini") # Searching for the file called config.ini to read settings
+
+try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
+    if urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8")!=version+"\n":
+        print(Style.BRIGHT + Fore.CYAN + "Outdated version, redownload: " + Fore.YELLOW + "https://github.com/Seconb/Arsenal-Colorbot/tree/main" + Style.RESET_ALL)
+        while True:
+            pass
+except Exception as e:
+    print("Error checking update: ", e)
 
 try:
     config = configparser.ConfigParser() #this is separating all the config options you set.
     config.optionxform = str
     config.read(config_file_path)
 except Exception as e: #every try: ... except Exception as e: ... is a form of general error catching, the basics.
-    print("Error reading configuration:", e)
+    print("Error reading config... :", e)
 
 def rbxfocused():
     try:
@@ -83,6 +93,10 @@ def loadsettings(): #loading the settings, duh.
             colorname = Fore.GREEN
             upper = np.array([60, 255, 201], dtype="uint8")
             lower = np.array([60, 255, 201], dtype="uint8")
+        if COLOR.lower() == "cyan":
+            colorname = Fore.CYAN
+            upper = np.array([90, 255, 201], dtype="uint8")
+            lower = np.array([90, 255, 201], dtype="uint8")
 
     except Exception as e:
         print("Error loading settings:", e)
@@ -210,7 +224,7 @@ def print_banner(b0t: trb0t): #Printing the information
         )
         print(
             "Enemy Color          :",
-            str(Style.BRIGHT + colorname + COLOR) + Style.RESET_ALL
+            str(Style.BRIGHT + colorname + COLOR.lower()) + Style.RESET_ALL
                     )
     except Exception as e:
         print("Error printing banner:", e)
