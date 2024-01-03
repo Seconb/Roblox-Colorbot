@@ -23,7 +23,7 @@ config_file_path = os.path.join(sdir, "config.ini") # Searching for the file cal
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
     if urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8")!=version+"\n":
-        print(Style.BRIGHT + Fore.CYAN + "Outdated version, redownload: " + Fore.YELLOW + "https://github.com/Seconb/Arsenal-Colorbot/tree/main" + Style.RESET_ALL)
+        print(Style.BRIGHT + Fore.CYAN + "Outdated version, redownload and delete the old one! : " + Fore.YELLOW + "https://github.com/Seconb/Arsenal-Colorbot/tree/main" + Style.RESET_ALL)
         while True:
             pass
 except Exception as e:
