@@ -12,9 +12,10 @@ from colorama import Fore, Style, init # Makes the colorful text in the console
 import ctypes # Also Windows API to move the mouse
 import time # Allows for specific time delays and such
 import pygetwindow as gw # Only takes screenshots when youre actually playing
+import requests
 from urllib.request import urlopen
 #importing all the modules we need to run the code.
-version = 1 # version number to check for updates
+version = 2 # version number to check for updates
 switchmodes = ["hold", "toggle"] #this is a array of [0, 1] where hold is 0, toggle is 1. 
 
 sdir = os.path.dirname(os.path.abspath(__file__)) #Finding current directory where the script is being run in
@@ -42,7 +43,6 @@ def rbxfocused():
         else:
             return False
     except Exception as e:
-        print("Exception checking active window:", e)
         return False
 
 def loadsettings(): #loading the settings, duh.
