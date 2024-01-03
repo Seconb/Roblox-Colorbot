@@ -7,7 +7,7 @@ It will not be maintained forever. Keep in mind that, while currently undetected
 
 - Windows 10/11 Only! May have issues on some stretched or otherwise unusual resolutions (i.e 1152x852 or 1366x768). 1080p, 1440p, or 4k is recommended. Mouse Acceleration should be turned off for best results.
 
-- Download the Source code, install Python from this link and check "Add Python.exe to PATH" before actually installing. Then run installer.bat.
+- Download the Source code, install Python from this link: [https://www.python.org/downloads/release/python-31011/](url) and check "Add Python.exe to PATH" before actually installing. Then run installer.bat.
 
 - Enable "Enemy Color Outlines" in Arsenal settings
 
