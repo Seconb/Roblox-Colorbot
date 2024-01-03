@@ -15,19 +15,22 @@ import pygetwindow as gw # Only takes screenshots when youre actually playing
 import requests
 from urllib.request import urlopen
 #importing all the modules we need to run the code.
-version = 2 # version number to check for updates
+version = "3" # version number to check for updates
 switchmodes = ["hold", "toggle"] #this is a array of [0, 1] where hold is 0, toggle is 1. 
 
 sdir = os.path.dirname(os.path.abspath(__file__)) #Finding current directory where the script is being run in
 config_file_path = os.path.join(sdir, "config.ini") # Searching for the file called config.ini to read settings
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
-    if urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8")!=version+"\n":
-        print(Style.BRIGHT + Fore.CYAN + "Outdated version, redownload and delete the old one! : " + Fore.YELLOW + "https://github.com/Seconb/Arsenal-Colorbot/tree/main" + Style.RESET_ALL)
+    if not "3" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
+        print(Style.BRIGHT + Fore.CYAN + "Outdated version, redownload: " + Fore.YELLOW + "https://github.com/Seconb/Arsenal-Colorbot/tree/main" + Style.RESET_ALL)
         while True:
-            pass
+            time.sleep(0.1)
 except Exception as e:
     print("Error checking update: ", e)
+    print("Continuing anyway!")
+    time.sleep(5)
+    pass
 
 try:
     config = configparser.ConfigParser() #this is separating all the config options you set.
