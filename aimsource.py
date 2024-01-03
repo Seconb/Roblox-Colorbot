@@ -12,7 +12,6 @@ from colorama import Fore, Style, init # Makes the colorful text in the console
 import ctypes # Also Windows API to move the mouse
 import time # Allows for specific time delays and such
 import pygetwindow as gw # Only takes screenshots when youre actually playing
-import requests
 from urllib.request import urlopen
 #importing all the modules we need to run the code.
 version = 1 # version number to check for updates
