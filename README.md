@@ -3,9 +3,16 @@
 This project is currently being maintained slightly, but is meant primarily to be used as a way to learn.
 It will not be maintained forever. Keep in mind that, while currently undetected by Arsenal or Roblox's Hyperion anti-cheat, this status is not guaranteed forever. I, the developer, hold no responsibility for bans caused by this software.
 
+# TUTORIAL VIDEO (USAGE GUIDE MAY STILL BE HELPFUL)
+
+- https://streamable.com/wydt64
+- If the video contains any errors or genuine mistakes please dm Seconb on Discord. Note that if you DM me regarding problems you will be blocked. Use the "Issues" tab in the GitHub repo.
+
 # USAGE GUIDE (From the source)
 
 - Windows 10/11 Only! May have issues on some stretched or otherwise unusual resolutions (i.e 1152x852 or 1366x768). 1080p, 1440p, or 4k is recommended. Mouse Acceleration should be turned off for best results.
+
+- Bloxstrap support is not guaranteed (True fullscreen), if you have issues using Bloxstrap then try the regular verson of Web Roblox. UWP users may also face problems.
 
 - Download the Source code, install Python from this link: https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe and check "Add Python.exe to PATH" before actually installing. Then run installer.bat.
 
