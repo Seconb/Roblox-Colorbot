@@ -7,6 +7,7 @@ It will not be maintained forever. Keep in mind that, while currently undetected
 
 - https://streamable.com/wydt64
 - If the video contains any errors or genuine mistakes please dm Seconb on Discord. Note that if you DM me regarding problems you will be blocked. Use the "Issues" tab in the GitHub repo.
+- The video may eventually be outdated as new features are released, the video will not be replaced until core elements are changed.
 
 # USAGE GUIDE (From the source)
 
