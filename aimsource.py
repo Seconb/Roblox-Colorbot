@@ -66,7 +66,7 @@ def loadsettings(): #loading the settings, duh.
             or BINDMODE.lower() == "k"
             or BINDMODE.lower() == "key"
         ):
-            A1M_KEY = config.get("Config", "A1M_KEY")
+        A1M_KEY = config.get("Config", "A1M_KEY")
         SWITCH_MODE_KEY = config.get("Config", "SWITCH_MODE_KEY")
         FOV_KEY_UP = config.get("Config", "FOV_KEY_UP")
         FOV_KEY_DOWN = config.get("Config", "FOV_KEY_DOWN")
@@ -127,7 +127,7 @@ class trb0t:
     def __init__(self): #initialize the code, first set the variables for default settings.
         self.a1mtoggled = False
         self.mode = 2 #modes go from 1-2
-        self.switchmode = 0 #as i said earlier, the array is 0-1, 0 being hold, 1 being toggle. the default is HOLD as you can see.
+        self.switchmode = 1 #as i said earlier, the array is 0-1, 0 being hold, 1 being toggle. the default is TOGGLE as you can see.
 
     def process(self): #process all images we're capturing
         if rbxfocused():
