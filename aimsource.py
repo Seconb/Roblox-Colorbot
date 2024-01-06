@@ -79,7 +79,9 @@ def loadsettings(): #loading the settings, duh.
         TRIGGERBOT = config.get("Config", "TRIGGERBOT")
         TRIGGERBOT_DELAY = int(config.get("Config", "TRIGGERBOT_DELAY"))
         SMOOTHENING = config.get("Config", "SMOOTHENING")
-        SMOOTH_FACTOR = int(config.get("Config", "SMOOTH_FACTOR"))
+        SMOOTH_FACTOR = float(config.get("Config", "SMOOTH_FACTOR"))
+        if SMOOTH_FACTOR <= 0:
+            SMOOTHENING = "disabled"
         COLOR = config.get("Config", "COLOR")
         if COLOR.lower() == "yellow":
             colorname = Fore.YELLOW
