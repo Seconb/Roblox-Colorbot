@@ -20,7 +20,7 @@ sdir = os.path.dirname(os.path.abspath(__file__)) #Finding current directory whe
 config_file_path = os.path.join(sdir, "config.ini") # Searching for the file called config.ini to read settings
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
-    if not "4" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
+    if not "5" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
         print(Style.BRIGHT + Fore.CYAN + "Outdated version, redownload: " + Fore.YELLOW + "https://github.com/Seconb/Arsenal-Colorbot/tree/main" + Style.RESET_ALL)
         while True:
             time.sleep(0.1)
@@ -47,7 +47,7 @@ def rbxfocused():
         return False
 
 def loadsettings(): #loading the settings, duh.
-    global A1M_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, A1M_OFFSET_Y, A1M_OFFSET_X, A1M_SPEED_X, A1M_SPEED_Y, upper, lower, A1M_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY
+    global A1M_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, A1M_OFFSET_Y, A1M_OFFSET_X, A1M_SPEED_X, A1M_SPEED_Y, upper, lower, A1M_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR
     #these are essential variables that show the settings of the application.
     try:
         BINDMODE = config.get("Config", "BINDMODE")
@@ -78,6 +78,8 @@ def loadsettings(): #loading the settings, duh.
         A1M_SPEED_Y = float(config.get("Config", "A1M_SPEED_Y"))
         TRIGGERBOT = config.get("Config", "TRIGGERBOT")
         TRIGGERBOT_DELAY = int(config.get("Config", "TRIGGERBOT_DELAY"))
+        SMOOTHENING = config.get("Config", "SMOOTHENING")
+        SMOOTH_FACTOR = int(config.get("Config", "SMOOTH_FACTOR"))
         COLOR = config.get("Config", "COLOR")
         if COLOR.lower() == "yellow":
             colorname = Fore.YELLOW
@@ -169,7 +171,11 @@ class trb0t:
                         y2 = y * A1M_SPEED_Y
                         x2 = int(x2)
                         y2 = int(y2)
-                        ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
+                        if SMOOTHENING.lower() != "disabled":
+                            if distance >= SMOOTH_FACTOR:
+                                ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
+                        else:
+                            ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
                         if TRIGGERBOT and distance <= 10:
                             time.sleep(TRIGGERBOT_DELAY / 1000)
                             ctypes.windll.user32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
@@ -202,25 +208,45 @@ def print_banner(b0t: trb0t): #Printing the information
         print(
             Style.BRIGHT
             + Fore.CYAN
-            + """ Seconb Color Aim for Arsenal! """ # code modified by taylor
+            + """
+    _   ___  ___ ___ _  _   _   _       ___ ___  _    ___  ___ ___  ___ _____ 
+   /_\ | _ \/ __| __| \| | /_\ | |     / __/ _ \| |  / _ \| _ \ _ )/ _ \_   _|
+  / _ \|   /\__ \ _|| .` |/ _ \| |__  | (_| (_) | |_| (_) |   / _ \ (_) || |  
+ /_/ \_\_|_\|___/___|_|\_/_/ \_\____|  \___\___/|____\___/|_|_\___/\___/ |_|                                                                                                                                                                                                                      
+"""
             + Style.RESET_ALL
         )
         print("====== Controls ======")
-        print("Activate a1mb0t      :", Fore.YELLOW + str(A1M_KEY) + Style.RESET_ALL)
-        print("Switch toggle/hold   :", Fore.YELLOW + SWITCH_MODE_KEY + Style.RESET_ALL)
-        print(
-            "Change FOV           :",
-            Fore.YELLOW + FOV_KEY_UP + "/" + FOV_KEY_DOWN + Style.RESET_ALL,
-        )
+        print("Activate colorbot    :", Fore.YELLOW + str(A1M_KEY) + Style.RESET_ALL)
+        if SWITCH_MODE_KEY != "disabled":
+            print("Switch toggle/hold   :", Fore.YELLOW + SWITCH_MODE_KEY + Style.RESET_ALL)
+        if FOV_KEY_UP != "disabled" and FOV_KEY_DOWN != "disabled":
+            print(
+                "Change FOV           :",
+                Fore.YELLOW + FOV_KEY_UP + "/" + FOV_KEY_DOWN + Style.RESET_ALL,
+            )
         print("==== Information =====")
         print(
             "Toggle/Hold Mode     :",
             Fore.CYAN + switchmodes[b0t.switchmode] + Style.RESET_ALL,
         )
-        print("A1m FOV              :", Fore.CYAN + str(A1M_FOV) + Style.RESET_ALL)
+        print("Aim FOV              :", Fore.CYAN + str(A1M_FOV) + Style.RESET_ALL)
         print("Cam FOV              :", Fore.CYAN + str(CAM_FOV) + Style.RESET_ALL)
+        if TRIGGERBOT != "disabled":
+            print("Triggerbot           :", Fore.GREEN + "ON" + Style.RESET_ALL)
+        else:
+            print("Triggerbot           :", Fore.RED + "OFF" + Style.RESET_ALL)
+        if TRIGGERBOT_DELAY != 0:
+            print("Triggerbot Delay     :", Fore.GREEN + str(TRIGGERBOT_DELAY) + Style.RESET_ALL)
+        if SMOOTHENING != "disabled":
+            print("Smoothening          :", Fore.GREEN + "ON" + Style.RESET_ALL)
+            print("Smoothening Factor   :", Fore.CYAN + str(SMOOTH_FACTOR) + Style.RESET_ALL)
+        else:
+            print("Smoothening          :", Fore.RED + "OFF" + Style.RESET_ALL)
+        if TRIGGERBOT_DELAY != 0:
+            print("Triggerbot Delay     :", Fore.GREEN + str(TRIGGERBOT_DELAY) + Style.RESET_ALL)
         print(
-            "A1m Speed            :",
+            "Aim Speed            :",
             Fore.CYAN
             + "X: "
             + str(A1M_SPEED_X)
@@ -238,7 +264,7 @@ def print_banner(b0t: trb0t): #Printing the information
             + Style.RESET_ALL,
         )
         print(
-            "A1m Activated        :",
+            "Aim Activated        :",
             (Fore.GREEN if b0t.a1mtoggled else Fore.RED)
             + str(b0t.a1mtoggled)
             + Style.RESET_ALL,
@@ -247,6 +273,13 @@ def print_banner(b0t: trb0t): #Printing the information
             "Enemy Color          :",
             str(Style.BRIGHT + colorname + COLOR.lower()) + Style.RESET_ALL
                     )
+        print("======================")
+        print(
+            Style.BRIGHT
+            + Fore.CYAN
+            + """ https://discord.gg/hH62fKGJnv for more info and help! """
+            + Style.RESET_ALL
+        )
     except Exception as e:
         print("Error printing banner:", e)
 
