@@ -165,7 +165,7 @@ class trb0t:
                                 ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
                         else:
                             ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
-                        if TRIGGERBOT and distance <= 10:
+                        if TRIGGERBOT != "disabled" and distance <= 10:
                             time.sleep(TRIGGERBOT_DELAY / 1000)
                             ctypes.windll.user32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
                             time.sleep(0.001)
