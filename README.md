@@ -40,7 +40,7 @@
 
 # TROUBLESHOOTING
 
-- Do not contact me on Discord with your troubles. Only use the "Issues" tab in this GitHub. I will not take any longer than maybe a few minutes to attempt to help you, and that is final.
+- Do not contact me on Discord with your troubles. Go to https://discord.gg/hH62fKGJnv or use the "Issues" tab at the top of this page.
 
 - Aim shaky? Lower your speed
   
