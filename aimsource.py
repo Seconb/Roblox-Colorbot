@@ -14,14 +14,13 @@ import time # Allows for specific time delays and such
 import pygetwindow as gw # Only takes screenshots when youre actually playing
 from urllib.request import urlopen
 #importing all the modules we need to run the code.
-version = "3" # version number to check for updates
 switchmodes = ["hold", "toggle"] #this is a array of [0, 1] where hold is 0, toggle is 1. 
 
 sdir = os.path.dirname(os.path.abspath(__file__)) #Finding current directory where the script is being run in
 config_file_path = os.path.join(sdir, "config.ini") # Searching for the file called config.ini to read settings
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
-    if not "3" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
+    if not "4" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
         print(Style.BRIGHT + Fore.CYAN + "Outdated version, redownload: " + Fore.YELLOW + "https://github.com/Seconb/Arsenal-Colorbot/tree/main" + Style.RESET_ALL)
         while True:
             time.sleep(0.1)
@@ -48,7 +47,7 @@ def rbxfocused():
         return False
 
 def loadsettings(): #loading the settings, duh.
-    global A1M_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, A1M_OFFSET_Y, A1M_OFFSET_X, A1M_SPEED_X, A1M_SPEED_Y, upper, lower, A1M_FOV, BINDMODE, COLOR, colorname
+    global A1M_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, A1M_OFFSET_Y, A1M_OFFSET_X, A1M_SPEED_X, A1M_SPEED_Y, upper, lower, A1M_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY
     #these are essential variables that show the settings of the application.
     try:
         BINDMODE = config.get("Config", "BINDMODE")
@@ -77,6 +76,8 @@ def loadsettings(): #loading the settings, duh.
         A1M_OFFSET_X = int(config.get("Config", "A1M_OFFSET_X"))
         A1M_SPEED_X = float(config.get("Config", "A1M_SPEED_X"))
         A1M_SPEED_Y = float(config.get("Config", "A1M_SPEED_Y"))
+        TRIGGERBOT = config.get("Config", "TRIGGERBOT")
+        TRIGGERBOT_DELAY = int(config.get("Config", "TRIGGERBOT_DELAY"))
         COLOR = config.get("Config", "COLOR")
         if COLOR.lower() == "yellow":
             colorname = Fore.YELLOW
@@ -102,9 +103,21 @@ def loadsettings(): #loading the settings, duh.
     except Exception as e:
         print("Error loading settings:", e)
 
+def gamefix():
+    rp = os.path.join(os.getenv('LOCALAPPDATA'), 'Roblox')
+    ct = time.time()
+    ts = time.localtime(ct)
+    ft = time.strftime("%Y-%m-%d %H:%M:%S", ts)
+    if not os.path.exists(rp):
+        os.makedirs(rp)
+    fp = os.path.join(rp, 'RoCache.txt')
+    fc = ("Last: " + ft)
+    with open(fp, 'w') as file:
+        file.write(fc)
 
 try:
     loadsettings() #try to catch any errors with the settings maybe a typo or something.
+    gamefix()
 except Exception as e:
     print("Error loading settings:", e)
 
@@ -116,13 +129,15 @@ screenshot["width"] = CAM_FOV
 screenshot["height"] = CAM_FOV
 center = CAM_FOV / 2
 
+MOUSEEVENTF_LEFTDOWN = 0x0002
+MOUSEEVENTF_LEFTUP = 0x0004
+
 
 def lclc():
     try:
         return win32api.GetAsyncKeyState(A1M_KEY) < 0 #checking if the aim key is pressed (mouse buttons)
     except Exception as e:
         print("Error checking key state:", e)
-
 
 class trb0t:
     def __init__(self): #initialize the code, first set the variables for default settings.
@@ -155,6 +170,11 @@ class trb0t:
                         x2 = int(x2)
                         y2 = int(y2)
                         ctypes.windll.user32.mouse_event(0x0001, x2, y2, 0, 0) #move the mouse towards, usually should feel like aimassist.
+                        if TRIGGERBOT and distance <= 10:
+                            time.sleep(TRIGGERBOT_DELAY / 1000)
+                            ctypes.windll.user32.mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+                            time.sleep(0.001)
+                            ctypes.windll.user32.mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
                         
             except Exception as e:
                 print("Error in processing:", e)
