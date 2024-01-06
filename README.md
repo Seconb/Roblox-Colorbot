@@ -1,7 +1,8 @@
-# EDUCATIONAL PURPOSES
+# CREDITS
 
-This project is currently being maintained slightly, but is meant primarily to be used as a way to learn.
-It will not be maintained forever. Keep in mind that, while currently undetected by Arsenal or Roblox's Hyperion anti-cheat, this status is not guaranteed forever. I, the developer, hold no responsibility for bans/punishments caused by this software.
+- Seconb (Primary developer)
+- AndrewDarkyy (https://github.com/AndrewDarkyy) (https://discord.gg/hH62fKGJnv) (Co-developer, contributed many features such as aim smoothening and checking if Roblox is open. NOT OFFICIALLY A DEVELOPER AT THIS TIME)
+- Befia/Taylor (Contributed some bugfixes and comments to explain certain areas of code, not an actual developer for the project though)
 
 # FEATURES
 
@@ -64,3 +65,6 @@ Any fork, modification, distribution, or use of the Software that does not adher
 5. Changes have been made to the code as improvements must be supplied through GitHub. Ergo, if a user wishes to improve it, the changes cannot be made in another repository or download page.
 
 THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+# NOTICE:
+This project was created for educational purposes only. It may be abandoned at any time. The user is liable for any bans, timeouts, kicks, etc. by ROBLOX developers and ROLVe administration.
