@@ -10,6 +10,7 @@ It will not be maintained forever. Keep in mind that, while currently undetected
 - Adjustable aim (where it aims like their head or their body, and the speed and distance it does that from)
 - Easy configuration via a file!
 - Simplified installation
+- Many choices for enemy outline colors!
 - Doesn't require Windows Defender off like other cheats!
 
 # TUTORIAL VIDEO (USAGE GUIDE MAY STILL BE HELPFUL)
