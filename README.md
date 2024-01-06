@@ -14,17 +14,31 @@
 - Many choices for enemy outline colors!
 - Doesn't require Windows Defender off like other cheats!
 
-# TUTORIAL VIDEO (USAGE GUIDE MAY STILL BE HELPFUL)
+# USAGE GUIDE
 
-- https://streamable.com/wydt64
-- If the video contains any errors or genuine mistakes please dm Seconb on Discord. Note that if you DM me regarding problems you will be blocked. Use the "Issues" tab in the GitHub repo.
-- The video may eventually be outdated as new features are released, the video will not be replaced until core elements are changed.
+- Video tutorial coming soon
 
-# USAGE GUIDE (From the source)
+- Windows 10/11 only, stretched/non-native resolutions may have issues. Turn off "Mouse Acceleration" in Windows.
+
+- Download from the Releases page: https://github.com/Seconb/Arsenal-Colorbot/releases/
+
+- Extract everything to a folder
+
+- Change your config by going into the 'internal' folder then finding config.ini and modifying it in Notepad
+
+- Run aimsource.exe
+
+- Turn on "Enemy Outlines" in Arsenal, and set the color to match the one in your "config.ini"
+
+- Use the colorbot. Note: Not required at all, but turning off Kill Effects, Ragdolls, and Shadows while turning on Basic Skins and Disable Bloom is recommended.
+
+# USE FROM SOURCE (NOT FOR NORMAL USERS, DEVELOPERS ONLY)
+
+- https://streamable.com/wydt64 <-- Video guide (read what's below before you watch it though)
 
 - Windows 10/11 Only! May have issues on some stretched or otherwise unusual resolutions (i.e 1152x852 or 1366x768). 1080p, 1440p, or 4k is recommended. Mouse Acceleration should be turned off for best results.
 
-- Bloxstrap support is not guaranteed (True fullscreen), if you have issues using Bloxstrap then try the regular verson of Web Roblox. UWP users may also face problems.
+- Bloxstrap support is not guaranteed (True fullscreen), if you have issues using Bloxstrap then try the regular verson of Web Roblox. If Web Roblox doesn't work then try Bloxstrap. UWP users may also face problems.
 
 - Download the Source code, install Python from this link: https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe and check "Add Python.exe to PATH" before actually installing. Then run installer.bat.
 
