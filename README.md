@@ -12,7 +12,7 @@
 - Easy configuration via a file!
 - Simplified installation
 - Many choices for enemy outline colors!
-- Doesn't require Windows Defender off like other cheats!
+- Doesn't require Windows Defender off like other cheats! (probably, lol)
 
 # USAGE GUIDE
 
