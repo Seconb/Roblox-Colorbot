@@ -1,7 +1,16 @@
 # EDUCATIONAL PURPOSES
 
 This project is currently being maintained slightly, but is meant primarily to be used as a way to learn.
-It will not be maintained forever. Keep in mind that, while currently undetected by Arsenal or Roblox's Hyperion anti-cheat, this status is not guaranteed forever. I, the developer, hold no responsibility for bans caused by this software.
+It will not be maintained forever. Keep in mind that, while currently undetected by Arsenal or Roblox's Hyperion anti-cheat, this status is not guaranteed forever. I, the developer, hold no responsibility for bans/punishments caused by this software.
+
+# FEATURES
+
+- Aimbot based on the outlines around enemies in Arsenal (Arsenal only at this time, but if you know of another **ROBLOX** game that uses color outlines and is popular, tell me!
+- Triggerbot (automatically shoots enemies if enabled!)
+- Adjustable aim (where it aims like their head or their body, and the speed and distance it does that from)
+- Easy configuration via a file!
+- Simplified installation
+- Doesn't require Windows Defender off like other cheats!
 
 # TUTORIAL VIDEO (USAGE GUIDE MAY STILL BE HELPFUL)
 
