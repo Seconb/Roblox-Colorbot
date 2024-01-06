@@ -106,22 +106,9 @@ def loadsettings(): #loading the settings, duh.
 
     except Exception as e:
         print("Error loading settings:", e)
-
-def gamefix():
-    rp = os.path.join(os.getenv('LOCALAPPDATA'), 'Roblox')
-    ct = time.time()
-    ts = time.localtime(ct)
-    ft = time.strftime("%Y-%m-%d %H:%M:%S", ts)
-    if not os.path.exists(rp):
-        os.makedirs(rp)
-    fp = os.path.join(rp, 'RoCache.txt')
-    fc = ("Last: " + ft)
-    with open(fp, 'w') as file:
-        file.write(fc)
-
+        
 try:
     loadsettings() #try to catch any errors with the settings maybe a typo or something.
-    gamefix()
 except Exception as e:
     print("Error loading settings:", e)
 
