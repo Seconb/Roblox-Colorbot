@@ -1,7 +1,7 @@
 # CREDITS
 
 - Seconb (Primary developer)
-- AndrewDarkyy (https://github.com/AndrewDarkyy) (https://discord.gg/hH62fKGJnv) (Co-developer, contributed many features such as aim smoothening and checking if Roblox is open. NOT OFFICIALLY A DEVELOPER AT THIS TIME)
+- AndrewDarkyy (https://github.com/AndrewDarkyy) (https://discord.gg/nDREsRUj9V) (Co-developer, contributed many features such as aim smoothening and checking if Roblox is open. NOT OFFICIALLY A DEVELOPER AT THIS TIME)
 - Befia/Taylor (Contributed some bugfixes and comments to explain certain areas of code, and added basic error handling. Not an actual developer for the project though)
 
 # FEATURES
@@ -54,7 +54,7 @@
 
 # TROUBLESHOOTING
 
-- Do not contact me on Discord with your troubles. Go to https://discord.gg/hH62fKGJnv or use the "Issues" tab at the top of this page.
+- Do not contact me on Discord with your troubles. Go to https://discord.gg/nDREsRUj9V or use the "Issues" tab at the top of this page.
 
 - Aim shaky? Lower your speed
   
