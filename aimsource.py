@@ -288,7 +288,7 @@ def print_banner(b0t: trb0t): #Printing the information
         print(
             Style.BRIGHT
             + Fore.CYAN
-            + "https://discord.gg/hH62fKGJnv for configs and help!"
+            + "https://discord.gg/nDREsRUj9V for configs and help!"
             + Style.RESET_ALL
         )
     except Exception as e:
@@ -301,13 +301,13 @@ try:
         buffer2 = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "w+")
         buffer2.write(str(currenttime))
         buffer2.close()
-        openwebpage("https://discord.gg/hH62fKGJnv")
+        openwebpage("https://discord.gg/nDREsRUj9V")
     buffer.close()
 except:
     buffer = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "w+")
     buffer.write(str(time.time()))
     buffer.close()
-    openwebpage("https://discord.gg/hH62fKGJnv")
+    openwebpage("https://discord.gg/nDREsRUj9V")
 
 if __name__ == "__main__":
     b0t = trb0t() #the main class we made earlier
