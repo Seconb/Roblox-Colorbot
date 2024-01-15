@@ -38,7 +38,7 @@ try:
     config.optionxform = str
     config.read(config_file_path)
 except Exception as e:
-    print("Error reading config:", e)
+        print("Error reading config:", e)
 
 try:
     os.system("title Colorbot")
@@ -48,12 +48,30 @@ except Exception as e:
 def rbxfocused():
     try:
         return "Roblox" in gw.getActiveWindow().title
-    except Exception as e:
+    except:
         return False
 
+def change_config_setting(setting_name, new_value): #changing the config settings ... duh.
+    try:
+        config.set("Config", setting_name, str(new_value))
+        with open(config_file_path, "w") as configfile:
+            config.write(configfile)
+        loadsettings()  # Update global variables after changing config
+        print(f"Config setting '{setting_name}' changed to {new_value}")
+    except Exception as e:
+        print(f"Error changing config setting '{setting_name}': {e}")
+
 def loadsettings(): #loading the settings, duh.
-    global AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, AIM_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE
+    global AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE
     #these are essential variables that show the settings of the application.
+
+    try: #read the config file again, just in case if the user changed the settings while the program was running.
+        config = configparser.ConfigParser() #this is separating all the config options you set.
+        config.optionxform = str
+        config.read(config_file_path)
+    except Exception as e:
+        print("Error reading config:", e)
+    
     try:
         BINDMODE = config.get("Config", "BINDMODE")
         if (
@@ -73,6 +91,7 @@ def loadsettings(): #loading the settings, duh.
         ):
             AIM_KEY = config.get("Config", "AIM_KEY")
         SWITCH_MODE_KEY = config.get("Config", "SWITCH_MODE_KEY")
+        UPDATE_KEY = config.get("Config", "UPDATE_KEY")
         FOV_KEY_UP = config.get("Config", "FOV_KEY_UP")
         FOV_KEY_DOWN = config.get("Config", "FOV_KEY_DOWN")
         CAM_FOV = int(config.get("Config", "CAM_FOV"))
@@ -231,6 +250,8 @@ def print_banner(b0t: trb0t): #Printing the information
         print("Activate colorbot    :", Fore.YELLOW + str(AIM_KEY) + Style.RESET_ALL)
         if SWITCH_MODE_KEY != "disabled":
             print("Switch toggle/hold   :", Fore.YELLOW + SWITCH_MODE_KEY + Style.RESET_ALL)
+        if UPDATE_KEY != "disabled":
+            print("Update Config        :", Fore.YELLOW + UPDATE_KEY + Style.RESET_ALL)
         if FOV_KEY_UP != "disabled" and FOV_KEY_DOWN != "disabled":
             print(
                 "Change FOV           :",
@@ -319,11 +340,15 @@ if __name__ == "__main__":
                 b0t.modeswitch() #switching the mode if the user presses the switch mode key AND its not disabled.
                 print_banner(b0t) #updating the information
             if FOV_KEY_UP != "disabled" and keyboard.is_pressed(FOV_KEY_UP):
-                AIM_FOV += 5 #same thing as before, just adding 5 increments to the fov.
+                change_config_setting("AIM_FOV", AIM_FOV+5) #same thing as before, just adding 5 increments to the fov.
                 print_banner(b0t)
             if FOV_KEY_DOWN != "disabled" and keyboard.is_pressed(FOV_KEY_DOWN):
-                AIM_FOV -= 5 #same thing as before just removing 5 increments
+                change_config_setting("AIM_FOV", AIM_FOV-5) #same thing as before just removing 5 increments
                 print_banner(b0t)
+            if UPDATE_KEY != "disabled" and keyboard.is_pressed(UPDATE_KEY):
+                loadsettings() #updating the settings if the user presses the update key.
+                print_banner(b0t)
+            
 
             time.sleep(0.1) #.1s cooldown as a way of preventing lag and mispresses
 
