@@ -61,20 +61,6 @@ def change_config_setting(setting_name, new_value): #changing the config setting
     except Exception as e:
         print(f"Error changing config setting '{setting_name}': {e}")
 
-def key_tostring(key):
-    if key == 0x01:
-        return "LeftClick"
-    elif key == 0x02:
-        return "RightClick"
-    elif key == 0x04:
-        return "MiddleClick"
-    elif key == 0x05:
-        return "SideButton1"
-    elif key == 0x06:
-        return "SideButton2"
-    else:
-        return str(key)
-
 def loadsettings(): #loading the settings, duh.
     global AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE
     #these are essential variables that show the settings of the application.
@@ -180,9 +166,6 @@ screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
 screenshot["width"] = CAM_FOV
 screenshot["height"] = CAM_FOV
 center = CAM_FOV / 2
-
-MOUSEEVENTF_LEFTDOWN = 0x0002
-MOUSEEVENTF_LEFTUP = 0x0004
 
 def lclc():
     try:
