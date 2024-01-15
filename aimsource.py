@@ -23,7 +23,7 @@ kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
 config_file_path = os.path.join(os.path.dirname(__file__), "config.ini") # Searching for the file called config.ini to read settings
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
-    if not "7" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
+    if not "8" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
         print("Outdated version, redownload: https://github.com/Seconb/Arsenal-Colorbot/releases")
         while True:
             time.sleep(0.1)
@@ -60,6 +60,20 @@ def change_config_setting(setting_name, new_value): #changing the config setting
         print(f"Config setting '{setting_name}' changed to {new_value}")
     except Exception as e:
         print(f"Error changing config setting '{setting_name}': {e}")
+
+def key_tostring(key):
+    if key == 0x01:
+        return "LeftClick"
+    elif key == 0x02:
+        return "RightClick"
+    elif key == 0x04:
+        return "MiddleClick"
+    elif key == 0x05:
+        return "SideButton1"
+    elif key == 0x06:
+        return "SideButton2"
+    else:
+        return str(key)
 
 def loadsettings(): #loading the settings, duh.
     global AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE
@@ -105,6 +119,8 @@ def loadsettings(): #loading the settings, duh.
         TRIGGERBOT_DISTANCE = int(config.get("Config", "TRIGGERBOT_DISTANCE"))
         SMOOTHENING = config.get("Config", "SMOOTHENING")
         SMOOTH_FACTOR = float(config.get("Config", "SMOOTH_FACTOR"))
+        UPPER_COLOR = tuple(map(int, config.get("Config", "UPPER_COLOR").split(', '))) # pasted from the modded colorbot but we're partnered so its chill
+        LOWER_COLOR = tuple(map(int, config.get("Config", "LOWER_COLOR").split(', ')))
         if SMOOTH_FACTOR <= 0:
             SMOOTHENING = "disabled"
         COLOR = config.get("Config", "COLOR")
@@ -128,6 +144,26 @@ def loadsettings(): #loading the settings, duh.
             colorname = Fore.CYAN
             upper = np.array((90, 255, 201), dtype="uint8")
             lower = np.array((90, 255, 201), dtype="uint8")
+        if COLOR.lower() == "red":
+            colorname = Fore.RED
+            upper = np.array((0, 255, 201), dtype="uint8")
+            lower = np.array((0, 255, 201), dtype="uint8")
+        if COLOR.lower() == "custom":
+            colorname = Fore.WHITE
+            upper = np.array(UPPER_COLOR, dtype="uint8")
+            lower = np.array(LOWER_COLOR, dtype="uint8")
+        if COLOR.lower() == "0000ff":
+            colorname = Fore.BLUE
+            upper = np.array((123, 255, 255), dtype="uint8")
+            lower = np.array((120, 147, 69), dtype="uint8")
+        if COLOR.lower() == "aimblox":
+            colorname = Fore.LIGHTRED_EX
+            upper = np.array((4, 225, 206), dtype="uint8")
+            lower = np.array((0, 175, 119), dtype="uint8")
+        if COLOR.lower() == "black":
+            colorname = Fore.WHITE
+            upper = np.array((0, 0, 0), dtype="uint8")
+            lower = np.array((0, 0, 0), dtype="uint8")
 
     except Exception as e:
         print("Error loading settings:", e)
@@ -287,7 +323,7 @@ def print_banner(b0t: trb0t): #Printing the information
             + Style.RESET_ALL,
         )
         print(
-            "AiM Offset           :",
+            "Aim Offset           :",
             Fore.CYAN
             + "X: "
             + str(AIM_OFFSET_X)
