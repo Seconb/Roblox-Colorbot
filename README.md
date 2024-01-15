@@ -7,13 +7,13 @@
 
 # FEATURES
 
-- Aimbot based on the outlines around enemies in Arsenal (Arsenal only at this time, but if you know of another **ROBLOX** game that uses color outlines and is popular, tell me!
+- Colorbot based on the outlines around enemies in Arsenal, Aimblox, and Bad Business
+- Custom color feature which allows for multi-game support.
 - Triggerbot (automatically shoots enemies if enabled!)
 - Adjustable aim (where it aims like their head or their body, and the speed and distance it does that from)
 - Easy configuration via a file!
 - Simplified installation
 - Many choices for enemy outline colors!
-- Doesn't require Windows Defender off like other cheats! (probably, lol)
 
 # USAGE GUIDE
 
