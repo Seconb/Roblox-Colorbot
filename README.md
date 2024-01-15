@@ -1,3 +1,7 @@
+# WIKI
+- See the wiki for a full usage guide and other usage information.
+- https://github.com/Seconb/Roblox-Colorbot/wiki
+
 # CREDITS
 
 - Seconb (Primary developer)
