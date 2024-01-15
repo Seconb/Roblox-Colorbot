@@ -13,6 +13,7 @@ import time # Allows for specific time delays and such
 import pygetwindow as gw # Only takes screenshots when youre actually playing
 from urllib.request import urlopen
 from webbrowser import open as openwebpage
+import math
 #importing all the modules we need to run the code.
 switchmodes = ("Hold", "Toggle") #this is a tuple of [0, 1] where hold is 0, toggle is 1. 
 
@@ -160,7 +161,7 @@ except Exception as e:
     print("Error loading settings:", e)
 
 sct = mss.mss()
-screenshot = sct.monitors[1] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
+screenshot = sct.monitors[0] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
 screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
 screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
 screenshot["width"] = CAM_FOV
@@ -210,7 +211,7 @@ class trb0t:
                     topmost = tuple(contour[contour[:, :, 1].argmin()][0]) #finds the highest contour vertically (highest point of the enemy, their head)
                     x = topmost[0] - center + AIM_OFFSET_X # calculating the perfect center of the enemy's head by offsetting it a set amount of pixels
                     y = topmost[1] - center + AIM_OFFSET_Y
-                    distance = np.sqrt(x**2 + y**2) # basic distance in a 2d plane. calculated using pythagorean theorem.
+                    distance = math.sqrt(x**2 + y**2) # basic distance in a 2d plane. calculated using pythagorean theorem.
                     if distance <= AIM_FOV:
                         x2 = x * AIM_SPEED_X
                         y2 = y * AIM_SPEED_Y
