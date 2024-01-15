@@ -38,4 +38,4 @@ Any fork, modification, distribution, or use of the Software that does not adher
 THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # NOTICE:
-This project was created for educational purposes only. It may be abandoned at any time. The user is liable for any bans, timeouts, kicks, etc. by ROBLOX developers and ROLVe administration.
+This project was created for educational purposes only. It may be abandoned at any time. The user is liable for any bans, timeouts, kicks, etc. by ROBLOX developers and administration.
