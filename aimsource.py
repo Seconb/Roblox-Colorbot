@@ -38,11 +38,6 @@ try:
 except Exception as e:
         print("Error reading config:", e)
 
-try:
-    os.system("title Colorbot")
-except Exception as e:
-    print("Error setting the title:", e)
-
 def rbxfocused():
     try:
         return "Roblox" == gw.getActiveWindow().title
@@ -54,17 +49,19 @@ def change_config_setting(setting_name, new_value): #changing the config setting
         config.set("Config", setting_name, str(new_value))
         with open(config_file_path, "w") as configfile:
             config.write(configfile)
-        loadsettings()  # Update global variables after changing config
+        load()  # Update global variables after changing config
         print(f"Config setting '{setting_name}' changed to {new_value}")
     except Exception as e:
         print(f"Error changing config setting '{setting_name}': {e}")
 
-def loadsettings(): #loading the settings, duh.
-    global AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE
+def load(): #loading the settings, duh.
+    global AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, toggleholdmodes, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE, user32, kernel
     #these are essential variables that show the settings of the application.
-    switchmodes = ("Hold", "Toggle") #this is a tuple of [0, 1] where hold is 0, toggle is 1. 
+    os.system("title Colorbot")
+    toggleholdmodes = ("Hold", "Toggle") #this is a tuple of [0, 1] where hold is 0, toggle is 1. 
     user32 = ctypes.windll.user32
     kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
+    
 
     try:
         buffer = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "r")
@@ -176,11 +173,7 @@ def loadsettings(): #loading the settings, duh.
 
     except Exception as e:
         print("Error loading settings:", e)
-        
-try:
-    loadsettings() #try to catch any errors with the settings maybe a typo or something.
-except Exception as e:
-    print("Error loading settings:", e)
+load()
 
 def lclc():
     try:
@@ -294,7 +287,7 @@ def print_banner(b0t: trb0t): #Printing the information
         print("==== Information =====")
         print(
             "Toggle/Hold Mode     :",
-            Fore.CYAN + switchmodes[b0t.switchmode] + Style.RESET_ALL,
+            Fore.CYAN + toggleholdmodes[b0t.switchmode] + Style.RESET_ALL,
         )
         print("Aim FOV              :", Fore.CYAN + str(AIM_FOV) + Style.RESET_ALL)
         print("Cam FOV              :", Fore.CYAN + str(CAM_FOV) + Style.RESET_ALL)
@@ -344,14 +337,14 @@ def print_banner(b0t: trb0t): #Printing the information
             Style.BRIGHT
             + Fore.CYAN
             + "https://discord.gg/nDREsRUj9V for configs and help!"
-            + "If you didn't download this from https://github.com/Seconb/Roblox-Colorbot, it's not legit!"
+            + "\nIf you didn't download this from https://github.com/Seconb/Roblox-Colorbot, it's not legit!"
             + Style.RESET_ALL
         )
     except Exception as e:
         print("Error printing banner:", e)
 
 if __name__ == "__main__":
-    b0t = trb0t() #the main class we made earlier
+    b0t = trb0t()
     try:
         print_banner(b0t) #to update information or print initial info.
         while True:
@@ -366,7 +359,7 @@ if __name__ == "__main__":
                 change_config_setting("AIM_FOV", AIM_FOV-5) #same thing as before just removing 5 increments
                 print_banner(b0t)
             if UPDATE_KEY != "disabled" and keyboard.is_pressed(UPDATE_KEY):
-                loadsettings() #updating the settings if the user presses the update key.
+                load() #updating the settings if the user presses the update key.
                 print_banner(b0t)
             
 
