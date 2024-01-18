@@ -15,10 +15,7 @@ from urllib.request import urlopen
 from webbrowser import open as openwebpage
 import math
 #importing all the modules we need to run the code.
-switchmodes = ("Hold", "Toggle") #this is a tuple of [0, 1] where hold is 0, toggle is 1. 
 
-user32 = ctypes.windll.user32
-kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
 
 # its important that you change (if youre using pyinstaller) os.path.dirname(__file__) to os.path.dirname(os.path.dirname(__file__))
 config_file_path = os.path.join(os.path.dirname(__file__), "config.ini") # Searching for the file called config.ini to read settings
@@ -65,7 +62,25 @@ def change_config_setting(setting_name, new_value): #changing the config setting
 def loadsettings(): #loading the settings, duh.
     global AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE
     #these are essential variables that show the settings of the application.
+    switchmodes = ("Hold", "Toggle") #this is a tuple of [0, 1] where hold is 0, toggle is 1. 
+    user32 = ctypes.windll.user32
+    kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
 
+    try:
+        buffer = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "r")
+        currenttime = time.time()
+        if currenttime - float(buffer.read()) >= 17990:
+            buffer2 = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "w+")
+            buffer2.write(str(currenttime))
+            buffer2.close()
+            openwebpage("https://discord.gg/nDREsRUj9V")
+        buffer.close()
+    except:
+        buffer = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "w+")
+        buffer.write(str(time.time()))
+        buffer.close()
+        openwebpage("https://discord.gg/nDREsRUj9V")
+    
     try: #read the config file again, just in case if the user changed the settings while the program was running.
         config = configparser.ConfigParser() #this is separating all the config options you set.
         config.optionxform = str
@@ -151,6 +166,13 @@ def loadsettings(): #loading the settings, duh.
             colorname = Fore.WHITE
             upper = np.array((0, 0, 0), dtype="uint8")
             lower = np.array((0, 0, 0), dtype="uint8")
+        sct = mss.mss()
+        screenshot = sct.monitors[0] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
+        screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
+        screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
+        screenshot["width"] = CAM_FOV
+        screenshot["height"] = CAM_FOV
+        center = CAM_FOV / 2
 
     except Exception as e:
         print("Error loading settings:", e)
@@ -159,14 +181,6 @@ try:
     loadsettings() #try to catch any errors with the settings maybe a typo or something.
 except Exception as e:
     print("Error loading settings:", e)
-
-sct = mss.mss()
-screenshot = sct.monitors[0] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
-screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
-screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
-screenshot["width"] = CAM_FOV
-screenshot["height"] = CAM_FOV
-center = CAM_FOV / 2
 
 def lclc():
     try:
@@ -330,25 +344,11 @@ def print_banner(b0t: trb0t): #Printing the information
             Style.BRIGHT
             + Fore.CYAN
             + "https://discord.gg/nDREsRUj9V for configs and help!"
+            + "If you didn't download this from https://github.com/Seconb/Roblox-Colorbot, it's not legit!"
             + Style.RESET_ALL
         )
     except Exception as e:
         print("Error printing banner:", e)
-
-try:
-    buffer = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "r")
-    currenttime = time.time()
-    if currenttime - float(buffer.read()) >= 17990:
-        buffer2 = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "w+")
-        buffer2.write(str(currenttime))
-        buffer2.close()
-        openwebpage("https://discord.gg/nDREsRUj9V")
-    buffer.close()
-except:
-    buffer = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "w+")
-    buffer.write(str(time.time()))
-    buffer.close()
-    openwebpage("https://discord.gg/nDREsRUj9V")
 
 if __name__ == "__main__":
     b0t = trb0t() #the main class we made earlier
