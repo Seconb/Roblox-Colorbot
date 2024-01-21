@@ -1,3 +1,8 @@
+# outdated
+This is a public fork, I like to look at seconb's code and contribute at times. This is not a repo you should be getting the colorbot off of. Please go to the [Offical Repo](https://github.com/Seconb/Roblox-Colorbot)
+I have a version of this [colorbot in C#](https://github.com/TaylorIsBlue/Csharp-Colorbot), which may be easier to read for some. It will not be updated regularly, and is simply a conversion with organized code.
+
+
 # WIKI
 - See the wiki for a full usage guide and other usage information.
 - https://github.com/Seconb/Roblox-Colorbot/wiki
