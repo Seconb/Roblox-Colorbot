@@ -21,7 +21,7 @@ import math
 config_file_path = os.path.join(os.path.dirname(__file__), "config.ini") # Searching for the file called config.ini to read settings
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
-    if not "8" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
+    if not "9" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
         print("Outdated version, redownload: https://github.com/Seconb/Arsenal-Colorbot/releases")
         while True:
             time.sleep(0.1)
@@ -40,7 +40,8 @@ except Exception as e:
 
 def rbxfocused():
     try:
-        return "Roblox" == gw.getActiveWindow().title
+        return True
+        #return "Roblox" == gw.getActiveWindow().title
     except:
         return False
 
@@ -55,7 +56,7 @@ def change_config_setting(setting_name, new_value): #changing the config setting
         print(f"Error changing config setting '{setting_name}': {e}")
 
 def load(): #loading the settings, duh.
-    global AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, toggleholdmodes, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE, user32, kernel
+    global sct, center, screenshot, AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, toggleholdmodes, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE, user32, kernel
     #these are essential variables that show the settings of the application.
     os.system("title Colorbot")
     toggleholdmodes = ("Hold", "Toggle") #this is a tuple of [0, 1] where hold is 0, toggle is 1. 
@@ -163,18 +164,17 @@ def load(): #loading the settings, duh.
             colorname = Fore.WHITE
             upper = np.array((0, 0, 0), dtype="uint8")
             lower = np.array((0, 0, 0), dtype="uint8")
+        sct = mss.mss()
+        screenshot = sct.monitors[0] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
+        screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
+        screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
+        screenshot["width"] = CAM_FOV
+        screenshot["height"] = CAM_FOV
+        center = CAM_FOV / 2
 
     except Exception as e:
         print("Error loading settings:", e)
 load()
-
-sct = mss.mss()
-screenshot = sct.monitors[0] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
-screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
-screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
-screenshot["width"] = CAM_FOV
-screenshot["height"] = CAM_FOV
-center = CAM_FOV / 2
 
 def lclc():
     try:
