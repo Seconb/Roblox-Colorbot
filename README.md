@@ -16,5 +16,4 @@
 - Triggerbot (automatically shoots enemies if enabled!)
 - Adjustable aim (where it aims like their head or their body, and the speed and distance it does that from)
 - Easy configuration via a file!
-- Simplified installation
 - Many choices for enemy outline colors!
