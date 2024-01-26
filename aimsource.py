@@ -40,8 +40,7 @@ except Exception as e:
 
 def rbxfocused():
     try:
-        return True
-        #return "Roblox" == gw.getActiveWindow().title
+        return "Roblox" == gw.getActiveWindow().title
     except:
         return False
 
