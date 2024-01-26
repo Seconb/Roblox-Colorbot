@@ -1,5 +1,5 @@
 # WIKI
-- See the wiki for a full usage guide and other usage information.
+- See the wiki for a full usage guide and other usage information (i.e Troubleshooting).
 - https://github.com/Seconb/Roblox-Colorbot/wiki
 
 # CREDITS
