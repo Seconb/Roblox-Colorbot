@@ -5,7 +5,7 @@
 # CREDITS
 
 - Seconb (Primary developer)
-- AndrewDarkyy (https://github.com/AndrewDarkyy) (https://discord.gg/nDREsRUj9V) (Co-developer, contributed many features such as aim smoothening and checking if Roblox is open, Latest-Version checker, and some optimizations)
+- AndrewDarkyy (https://github.com/AndrewDarkyy) (https://discord.gg/nDREsRUj9V) (Co-developer, contributed many features such as triggerbot, smoothening, version checker, and optimizations)
 - Befia/Taylor (Contributed some bugfixes and comments to explain certain areas of code, and added basic error handling. Not an actual developer for the project though)
 - Hariangr for their HSVRangeTool (https://github.com/hariangr/HsvRangeTool)
 
