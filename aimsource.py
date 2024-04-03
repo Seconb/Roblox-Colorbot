@@ -18,7 +18,7 @@ import math
 
 
 # its important that you change (if youre using pyinstaller) os.path.dirname(__file__) to os.path.dirname(os.path.dirname(__file__))
-config_file_path = os.path.join(os.path.dirname(__file__), "config.ini") # Searching for the file called config.ini to read settings
+config_file_path = os.path.join(os.path.dirname(__file__), "config.txt") # Searching for the file called config.txt to read settings
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
     if not "10" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
