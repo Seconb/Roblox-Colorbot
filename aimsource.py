@@ -16,7 +16,23 @@ from webbrowser import open as openwebpage
 import math
 user32 = ctypes.windll.user32
 kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
+toggleholdmodes = ("Hold", "Toggle") #this is a tuple of [0, 1] where hold is 0, toggle is 1. 
 #importing all the modules we need to run the code.
+
+try:
+    buffer = open(last_launch_path, "r")
+    currenttime = time()
+    if currenttime - float(buffer.read()) >= 17990:
+        buffer2 = open(last_launch_path, "w+")
+        buffer2.write(str(currenttime))
+        buffer2.close()
+        openwebpage("https://discord.gg/nDREsRUj9V")
+        buffer.close()
+except:
+    buffer = open(last_launch_path, "w+")
+    buffer.write(str(time()))
+    buffer.close()
+    openwebpage("https://discord.gg/nDREsRUj9V")
 
 try: # if the user is running the exe, find the config and time they last opened the file relative to the exe, else do it relative to the .py file.
     if getattr(sys, 'frozen', False):
@@ -66,28 +82,9 @@ def change_config_setting(setting_name, new_value): #changing the config setting
         print(f"Error changing config setting '{setting_name}': {e}")
 
 def load(): #loading the settings, duh.
-    global sct, center, screenshot, AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, toggleholdmodes, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE
+    global sct, center, screenshot, AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE
     #these are essential variables that show the settings of the application.
     os.system("title Colorbot")
-    toggleholdmodes = ("Hold", "Toggle") #this is a tuple of [0, 1] where hold is 0, toggle is 1. 
-    user32 = ctypes.windll.user32
-    kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
-    
-
-    try:
-        buffer = open(last_launch_path, "r")
-        currenttime = time()
-        if currenttime - float(buffer.read()) >= 17990:
-            buffer2 = open(last_launch_path, "w+")
-            buffer2.write(str(currenttime))
-            buffer2.close()
-            openwebpage("https://discord.gg/nDREsRUj9V")
-        buffer.close()
-    except:
-        buffer = open(last_launch_path, "w+")
-        buffer.write(str(time()))
-        buffer.close()
-        openwebpage("https://discord.gg/nDREsRUj9V")
     
     try: #read the config file again, just in case if the user changed the settings while the program was running.
         config = configparser.ConfigParser() #this is separating all the config options you set.
