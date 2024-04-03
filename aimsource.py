@@ -13,7 +13,7 @@ from time import time, sleep # Allows for specific time delays and such
 import pygetwindow as gw # Only takes screenshots when youre actually playing
 from urllib.request import urlopen
 from webbrowser import open as openwebpage
-import math
+from math import sqrt
 import sys
 user32 = ctypes.windll.user32
 kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
@@ -227,7 +227,7 @@ class trb0t:
                     topmost = tuple(contour[contour[:, :, 1].argmin()][0]) #finds the highest contour vertically (highest point of the enemy, their head)
                     x = topmost[0] - center + AIM_OFFSET_X # calculating the perfect center of the enemy's head by offsetting it a set amount of pixels
                     y = topmost[1] - center + AIM_OFFSET_Y
-                    distance = math.sqrt(x**2 + y**2) # basic distance in a 2d plane. calculated using pythagorean theorem.
+                    distance = sqrt(x**2 + y**2) # basic distance in a 2d plane. calculated using pythagorean theorem.
                     if distance <= AIM_FOV:
                         x2 = x * AIM_SPEED_X
                         y2 = y * AIM_SPEED_Y
