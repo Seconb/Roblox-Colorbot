@@ -179,7 +179,7 @@ def load(): #loading the settings, duh.
             upper = np.array((0, 0, 0), dtype="uint8")
             lower = np.array((0, 0, 0), dtype="uint8")
         sct = mss.mss()
-        screenshot = sct.monitors[0] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
+        screenshot = sct.monitors[1] #this is the settings for the screen capture, the program screenshots your first monitor and continues to look for enemies.
         screenshot["left"] = int((screenshot["width"] / 2) - (CAM_FOV / 2))
         screenshot["top"] = int((screenshot["height"] / 2) - (CAM_FOV / 2))
         screenshot["width"] = CAM_FOV
