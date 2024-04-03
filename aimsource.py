@@ -16,9 +16,18 @@ from webbrowser import open as openwebpage
 import math
 #importing all the modules we need to run the code.
 
-
-# its important that you change (if youre using pyinstaller) os.path.dirname(__file__) to os.path.dirname(os.path.dirname(__file__))
-config_file_path = os.path.join(os.path.dirname(__file__), "config.txt") # Searching for the file called config.txt to read settings
+try: # if the user is running the exe, find the config and time they last opened the file relative to the exe, else do it relative to the .py file.
+    if getattr(sys, 'frozen', False):
+        application_path = os.path.dirname(sys.executable)
+        config_file_path = os.path.join(application_path, 'config.txt')
+        last_launch_path = os.path.join(application_path, 'lastlaunch.txt')
+    else:
+        config_file_path = os.path.join(os.path.dirname(__file__), "config.txt")
+        last_launch_path = os.path.join(os.path.dirname(__file__), "lastlaunch.txt")
+except Exception as e:
+    print(f"An error occurred checking if you're using the .py or the .exe: {e}")
+    sleep(5)
+    exit()
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
     if not "10" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
@@ -64,19 +73,26 @@ def load(): #loading the settings, duh.
     
 
     try:
-        buffer = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "r")
-        currenttime = time.time()
+        buffer = open(last_launch_path, "r")
+        currenttime = time()
         if currenttime - float(buffer.read()) >= 17990:
-            buffer2 = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "w+")
+            buffer2 = open(last_launch_path, "w+")
             buffer2.write(str(currenttime))
             buffer2.close()
             openwebpage("https://discord.gg/nDREsRUj9V")
         buffer.close()
     except:
-        buffer = open(os.path.join(os.path.dirname(__file__), "lastlaunch.txt"), "w+")
-        buffer.write(str(time.time()))
+        buffer = open(last_launch_path, "w+")
+        buffer.write(str(time()))
         buffer.close()
         openwebpage("https://discord.gg/nDREsRUj9V")
+    
+    try: #read the config file again, just in case if the user changed the settings while the program was running.
+        config = configparser.ConfigParser() #this is separating all the config options you set.
+        config.optionxform = str
+        config.read(config_file_path)
+    except Exception as e:
+        print("Error reading config:", e)
     
     try: #read the config file again, just in case if the user changed the settings while the program was running.
         config = configparser.ConfigParser() #this is separating all the config options you set.
