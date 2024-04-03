@@ -125,28 +125,28 @@ def load(): #loading the settings, duh.
         COLOR = config.get("Config", "COLOR")
         if COLOR.lower() == "yellow":
             colorname = Fore.YELLOW
-            upper = np.array((38, 255, 203), dtype="uint8") # The upper and lower ranges defined are the colors that the aimbot will detect and shoot at
-            lower = np.array((30, 255, 201), dtype="uint8") # It's basically a group of a VERY specific shade of yellow (in this case) that it will shoot at and nothing else. The format is HSV, which differs from RGB.
+            upper = np.array((30, 255, 229), dtype="uint8") # The upper and lower ranges defined are the colors that the aimbot will detect and shoot at
+            lower = np.array((30, 255, 229), dtype="uint8") # It's basically a group of a VERY specific shade of yellow (in this case) that it will shoot at and nothing else. The format is HSV, which differs from RGB.
         if COLOR.lower() == "blue":
             colorname = Fore.BLUE
-            upper = np.array((123, 255, 217), dtype="uint8")
-            lower = np.array((113, 206, 189), dtype="uint8")
+            upper = np.array((120, 255, 229), dtype="uint8")
+            lower = np.array((120, 255, 229), dtype="uint8")
         if COLOR.lower() == "pink" or COLOR.lower() == "magenta" or COLOR.lower() == "purple":
             colorname = Fore.MAGENTA
-            upper = np.array((150, 255, 201), dtype="uint8")
-            lower = np.array((150, 255, 200), dtype="uint8")
+            upper = np.array((150, 255, 229), dtype="uint8")
+            lower = np.array((150, 255, 229), dtype="uint8")
         if COLOR.lower() == "green":
             colorname = Fore.GREEN
-            upper = np.array((60, 255, 201), dtype="uint8")
-            lower = np.array((60, 255, 201), dtype="uint8")
+            upper = np.array((60, 255, 229), dtype="uint8")
+            lower = np.array((60, 255, 229), dtype="uint8")
         if COLOR.lower() == "cyan":
             colorname = Fore.CYAN
-            upper = np.array((90, 255, 201), dtype="uint8")
-            lower = np.array((90, 255, 201), dtype="uint8")
+            upper = np.array((90, 255, 229), dtype="uint8")
+            lower = np.array((90, 255, 229), dtype="uint8")
         if COLOR.lower() == "red":
             colorname = Fore.RED
-            upper = np.array((0, 255, 201), dtype="uint8")
-            lower = np.array((0, 255, 201), dtype="uint8")
+            upper = np.array((0, 255, 229), dtype="uint8")
+            lower = np.array((0, 255, 229), dtype="uint8")
         if COLOR.lower() == "custom":
             colorname = Fore.WHITE
             upper = np.array(UPPER_COLOR, dtype="uint8")
@@ -259,89 +259,62 @@ class trb0t:
             print("Error switching modes:", e)
 
 
-def print_banner(b0t: trb0t): #Printing the information
+def print_banner(b0t: trb0t):  # Printing the information
     try:
-        os.system("cls") # First clearing the terminal, to then re-print with the new information. Note the colorama formatting with styling and colors!
+        os.system("cls")  # First clearing the terminal, to then re-print with the new information. Note the colorama formatting with styling and colors!
         print(
-            Style.BRIGHT
-            + Fore.CYAN
-            + """
-    _   ___  ___ ___ _  _   _   _       ___ ___  _    ___  ___ ___  ___ _____ 
-   /_\ | _ \/ __| __| \| | /_\ | |     / __/ _ \| |  / _ \| _ \ _ )/ _ \_   _|
-  / _ \|   /\__ \ _|| .` |/ _ \| |__  | (_| (_) | |_| (_) |   / _ \ (_) || |  
- /_/ \_\_|_\|___/___|_|\_/_/ \_\____|  \___\___/|____\___/|_|_\___/\___/ |_|                                                                                                                                                                                                                      
-"""
-            + Style.RESET_ALL
+            f"{Style.BRIGHT}{Fore.CYAN}\n"
+            f"    _   ___  ___ ___ _  _   _   _       ___ ___  _    ___  ___ ___  ___ _____\n"
+            f"   /_\ | _ \/ __| __| \| | /_\ | |     / __/ _ \| |  / _ \| _ \ _ )/ _ \_   _|\n"
+            f"  / _ \|   /\__ \ _|| .` |/ _ \| |__  | (_| (_) | |_| (_) |   / _ \ (_) || |  \n"
+            f" /_/ \_\_|_\|___/___|_|\_/_/ \_\____|  \___\___/|____\___/|_|_\___/\___/ |_|\n"
+            f"{Style.RESET_ALL}"
         )
         print("====== Controls ======")
-        print("Activate colorbot    :", Fore.YELLOW + str(AIM_KEY) + Style.RESET_ALL)
+        print(f"Activate colorbot    : {Fore.YELLOW}{AIM_KEY}{Style.RESET_ALL}")
         if SWITCH_MODE_KEY != "disabled":
-            print("Switch toggle/hold   :", Fore.YELLOW + SWITCH_MODE_KEY + Style.RESET_ALL)
+            print(f"Switch toggle/hold   : {Fore.YELLOW}{SWITCH_MODE_KEY}{Style.RESET_ALL}")
         if UPDATE_KEY != "disabled":
-            print("Update Config        :", Fore.YELLOW + UPDATE_KEY + Style.RESET_ALL)
+            print(f"Update Config        : {Fore.YELLOW}{UPDATE_KEY}{Style.RESET_ALL}")
         if FOV_KEY_UP != "disabled" and FOV_KEY_DOWN != "disabled":
-            print(
-                "Change FOV           :",
-                Fore.YELLOW + FOV_KEY_UP + "/" + FOV_KEY_DOWN + Style.RESET_ALL,
-            )
+            print(f"Change FOV           : {Fore.YELLOW}{FOV_KEY_UP}/{FOV_KEY_DOWN}{Style.RESET_ALL}")
         print("==== Information =====")
-        print(
-            "Toggle/Hold Mode     :",
-            Fore.CYAN + toggleholdmodes[b0t.switchmode] + Style.RESET_ALL,
-        )
-        print("Aim FOV              :", Fore.CYAN + str(AIM_FOV) + Style.RESET_ALL)
-        print("Cam FOV              :", Fore.CYAN + str(CAM_FOV) + Style.RESET_ALL)
+        print(f"Toggle/Hold Mode     : {Fore.CYAN}{toggleholdmodes[b0t.switchmode]}{Style.RESET_ALL}")
+        print(f"Aim FOV              : {Fore.CYAN}{AIM_FOV}{Style.RESET_ALL}")
+        print(f"Cam FOV              : {Fore.CYAN}{CAM_FOV}{Style.RESET_ALL}")
         if TRIGGERBOT != "disabled":
-            print("Triggerbot           :", Fore.GREEN + "On" + Style.RESET_ALL)
+            print(f"Triggerbot           : {Fore.GREEN}On{Style.RESET_ALL}")
         else:
-            print("Triggerbot           :", Fore.RED + "Off" + Style.RESET_ALL)
+            print(f"Triggerbot           : {Fore.RED}Off{Style.RESET_ALL}")
         if TRIGGERBOT_DELAY != 0:
-            print("Triggerbot Delay     :", Fore.GREEN + str(TRIGGERBOT_DELAY) + Style.RESET_ALL)
+            print(f"Triggerbot Delay     : {Fore.GREEN}{TRIGGERBOT_DELAY}{Style.RESET_ALL}")
         if SMOOTHENING != "disabled":
-            print("Smoothening          :", Fore.GREEN + "On" + Style.RESET_ALL)
-            print("Smoothening Factor   :", Fore.CYAN + str(SMOOTH_FACTOR) + Style.RESET_ALL)
+            print(f"Smoothening          : {Fore.GREEN}On{Style.RESET_ALL}")
+            print(f"Smoothening Factor   : {Fore.CYAN}{SMOOTH_FACTOR}{Style.RESET_ALL}")
         else:
-            print("Smoothening          :", Fore.RED + "Off" + Style.RESET_ALL)
+            print(f"Smoothening          : {Fore.RED}Off{Style.RESET_ALL}")
         if TRIGGERBOT_DELAY != 0:
-            print("Triggerbot Delay     :", Fore.GREEN + str(TRIGGERBOT_DELAY) + Style.RESET_ALL)
+            print(f"Triggerbot Delay     : {Fore.GREEN}{TRIGGERBOT_DELAY}{Style.RESET_ALL}")
         print(
-            "Aim Speed            :",
-            Fore.CYAN
-            + "X: "
-            + str(AIM_SPEED_X)
-            + " Y: "
-            + str(AIM_SPEED_Y)
-            + Style.RESET_ALL,
+            f"Aim Speed            : {Fore.CYAN}X: {AIM_SPEED_X} Y: {AIM_SPEED_Y}{Style.RESET_ALL}"
         )
         print(
-            "Aim Offset           :",
-            Fore.CYAN
-            + "X: "
-            + str(AIM_OFFSET_X)
-            + " Y: "
-            + str(AIM_OFFSET_Y)
-            + Style.RESET_ALL,
+            f"Aim Offset           : {Fore.CYAN}X: {AIM_OFFSET_X} Y: {AIM_OFFSET_Y}{Style.RESET_ALL}"
         )
         print(
-            "Aim Activated        :",
-            (Fore.GREEN if b0t.AIMtoggled else Fore.RED)
-            + str(b0t.AIMtoggled)
-            + Style.RESET_ALL,
+            f"Aim Activated        : {(Fore.GREEN if b0t.AIMtoggled else Fore.RED)}{b0t.AIMtoggled}{Style.RESET_ALL}"
         )
-        print(
-            "Enemy Color          :",
-            str(colorname + COLOR) + Style.RESET_ALL
-                    )
+        print(f"Enemy Color          : {str(colorname + COLOR)}{Style.RESET_ALL}")
         print("======================")
         print(
-            Style.BRIGHT
-            + Fore.CYAN
-            + "https://discord.gg/nDREsRUj9V for configs and help!"
-            + "\nIf you didn't download this from https://github.com/Seconb/Roblox-Colorbot, it's not legit!"
-            + Style.RESET_ALL
+            f"{Style.BRIGHT}{Fore.CYAN}"
+            "https://discord.gg/nDREsRUj9V for configs and help!\n"
+            "If you didn't download this from https://github.com/Seconb/Roblox-Colorbot, it's not legit!"
+            f"{Style.RESET_ALL}"
         )
     except Exception as e:
         print("Error printing banner:", e)
+
 
 if __name__ == "__main__":
     b0t = trb0t()
