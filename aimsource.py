@@ -9,30 +9,16 @@ import win32con
 from threading import Thread
 from colorama import Fore, Style # Makes the colorful text in the console
 import ctypes # Also Windows API to move the mouse
-import time # Allows for specific time delays and such
+from time import time, sleep # Allows for specific time delays and such
 import pygetwindow as gw # Only takes screenshots when youre actually playing
 from urllib.request import urlopen
 from webbrowser import open as openwebpage
 import math
+import sys
 user32 = ctypes.windll.user32
 kernel = np.ones((3, 3), np.uint8) # 3x3 array of 1s for structuring purposes
 toggleholdmodes = ("Hold", "Toggle") #this is a tuple of [0, 1] where hold is 0, toggle is 1. 
 #importing all the modules we need to run the code.
-
-try:
-    buffer = open(last_launch_path, "r")
-    currenttime = time()
-    if currenttime - float(buffer.read()) >= 17990:
-        buffer2 = open(last_launch_path, "w+")
-        buffer2.write(str(currenttime))
-        buffer2.close()
-        openwebpage("https://discord.gg/nDREsRUj9V")
-        buffer.close()
-except:
-    buffer = open(last_launch_path, "w+")
-    buffer.write(str(time()))
-    buffer.close()
-    openwebpage("https://discord.gg/nDREsRUj9V")
 
 try: # if the user is running the exe, find the config and time they last opened the file relative to the exe, else do it relative to the .py file.
     if getattr(sys, 'frozen', False):
@@ -47,15 +33,30 @@ except Exception as e:
     sleep(5)
     exit()
 
+try:
+    buffer = open(last_launch_path, "r")
+    currenttime = time()
+    if currenttime - float(buffer.read()) >= 17990:
+        buffer2 = open(last_launch_path, "w+")
+        buffer2.write(str(currenttime))
+        buffer2.close()
+        openwebpage("https://discord.gg/nDREsRUj9V")
+        buffer.close()
+except:
+    buffer = open(last_launch_path, "w+")
+    buffer.write(str(currenttime))
+    buffer.close()
+    openwebpage("https://discord.gg/nDREsRUj9V")
+
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
     if not "10" in urlopen("https://raw.githubusercontent.com/Seconb/Arsenal-Colorbot/main/version.txt").read().decode("utf-8"):
         print("Outdated version, redownload: https://github.com/Seconb/Arsenal-Colorbot/releases")
         while True:
-            time.sleep(0.1)
+            sleep(0.1)
 except Exception as e:
     print("Error checking update: ", e)
     print("Continuing anyway!")
-    time.sleep(5)
+    sleep(5)
     pass
 
 try:
@@ -92,14 +93,7 @@ def load(): #loading the settings, duh.
         config.read(config_file_path)
     except Exception as e:
         print("Error reading config:", e)
-    
-    try: #read the config file again, just in case if the user changed the settings while the program was running.
-        config = configparser.ConfigParser() #this is separating all the config options you set.
-        config.optionxform = str
-        config.read(config_file_path)
-    except Exception as e:
-        print("Error reading config:", e)
-    
+
     try:
         BINDMODE = config.get("Config", "BINDMODE")
         if (
@@ -205,13 +199,13 @@ class trb0t:
 
     def __stop(self):
         oldclicks = self.__clicks
-        time.sleep(.05)
+        sleep(.05)
         if self.__clicks == oldclicks:
             user32.mouse_event(0x0004)
 
     def __delayedaim(self):
         self.__shooting = True
-        time.sleep(TRIGGERBOT_DELAY / 1000)
+        sleep(TRIGGERBOT_DELAY / 1000)
         user32.mouse_event(0x0002)
         self.__clicks += 1
         Thread(target = self.__stop).start()
@@ -259,7 +253,7 @@ class trb0t:
     def AIMtoggle(self):
         try:
             self.AIMtoggled = not self.AIMtoggled
-            time.sleep(0.1) # very short cooldown to stop it from thinking we're rapid toggling.
+            sleep(0.1) # very short cooldown to stop it from thinking we're rapid toggling.
         except Exception as e:
             print("Error toggling AIM:", e)
 
@@ -269,7 +263,7 @@ class trb0t:
                 self.switchmode = 1
             elif self.switchmode == 1:
                 self.switchmode = 0
-            time.sleep(0.1)
+            sleep(0.1)
         except Exception as e:
             print("Error switching modes:", e)
 
@@ -351,7 +345,7 @@ if __name__ == "__main__":
                 print_banner(b0t)
             
 
-            time.sleep(0.1) #.1s cooldown as a way of preventing lag and mispresses
+            sleep(0.1) #.1s cooldown as a way of preventing lag and mispresses
 
             if (
                 BINDMODE.lower() == "win32"
