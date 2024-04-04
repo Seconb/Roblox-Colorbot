@@ -215,12 +215,12 @@ class trb0t:
         oldclicks = self.__clicks
         sleep(.05)
         if self.__clicks == oldclicks:
-            win32api.mouse_event(0x0004)
+            win32api.mouse_event(0x0004, 0, 0, 0, 0)
 
     def __delayedaim(self):
         self.__shooting = True
         sleep(TRIGGERBOT_DELAY / 1000)
-        win32api.mouse_event(0x0002)
+        win32api.mouse_event(0x0002, 0, 0, 0, 0)
         self.__clicks += 1
         Thread(target = self.__stop).start()
         self.__shooting = False
@@ -255,7 +255,7 @@ class trb0t:
                                 if self.__shooting == False:
                                     Thread(target = self.__delayedaim).start()
                             else:
-                                win32api.mouse_event(0x0002)
+                                win32api.mouse_event(0x0002, 0, 0, 0, 0)
                                 self.__clicks += 1
                                 Thread(target = self.__stop).start()
                         
