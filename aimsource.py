@@ -332,7 +332,7 @@ def print_banner(b0t: trb0t):  # Printing the information
         print("======================")
         print(
             f"{Style.BRIGHT}{Fore.CYAN}"
-            "https://discord.gg/nDREsRUj9V for configs and help!\n"
+            "https://discord.gg/thunderclient for configs and help!\n"
             "If you didn't download this from https://github.com/Seconb/Roblox-Colorbot, it's not legit!"
             f"{Style.RESET_ALL}"
         )
