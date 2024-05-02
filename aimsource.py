@@ -1,7 +1,7 @@
 from keyboard import is_pressed # Library that relates to reading and writing keyboard inputs
 from os import system, chdir
 from os.path import dirname, join
-import mss # Takes screenshot
+import mss # Takes screenshot. May change it to use Bettercam https://github.com/RootKit-Org/BetterCam in the future as that's much more efficient.
 import configparser
 from cv2 import dilate, threshold, findContours, RETR_EXTERNAL, CHAIN_APPROX_NONE, contourArea, cvtColor, COLOR_BGR2HSV, inRange, THRESH_BINARY # examines screenshot
 import numpy as np # Works with CV2
