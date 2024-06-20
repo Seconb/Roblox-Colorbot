@@ -1,7 +1,7 @@
-[Config]
+[Config] # bad business config 
 
 # Change to any key in the keybinds list (check keybind_list.txt)
-AIM_KEY = X2
+AIM_KEY = Right Click
 
 # Change between toggling and holding with the A1M_KEY. By default, pressing A1M_KEY toggles the aimbot on and off. If you press F5, it'll only be active when holding it.
 SWITCH_MODE_KEY = F5
@@ -16,32 +16,32 @@ AIM_FOV = 70
 # Don't make AIM_FOV bigger than CAM_FOV
 
 # Speed on the X and Y axes. Please note that your mouse's DPI and your Roblox in-game sensitivity will highly impact this.
-AIM_SPEED_X = 0.3
-AIM_SPEED_Y = 0.3
+AIM_SPEED_X = 0.2
+AIM_SPEED_Y = 0.2
 # Speed bigger than 1 is not recommended.
 
 # Aim smoothening, makes plays look more legit. CREDITS TO ANDREWDARKYY FOR MAKING THE ORIGINAL METHOD
 SMOOTHENING = disabled
-SMOOTH_FACTOR = 1
+SMOOTH_FACTOR = 0.5
 # Set to disabled to turn off
 
 # You probably don't have to change this, but if it aims too far to the left, decrease the X offset. If it's too far to the right, increase it.
 # If it aims too high up, increase the Y offset. If it aims too far down (doesn't hit headshots), decrease the Y offset.
 AIM_OFFSET_X = 7
-AIM_OFFSET_Y = 10
+AIM_OFFSET_Y = 25
 
 # Triggerbot! Automatically shoots. To disable, change TRIGGERBOT to disabled.
 TRIGGERBOT = disabled
-TRIGGERBOT_DELAY = 0
+TRIGGERBOT_DELAY = 20
 TRIGGERBOT_DISTANCE = 10
 # Delay before shooting to look legit. 80 - 100 is recommended.
 # TRIGGERBOT_DISTANCE is how close it needs to be to auto shoot. You probably don't have to change it.
 
 # Set the color of enemies to aim at. Yellow, Blue, Pink/Magenta/Purple, Green, Cyan, Red, Black, or Aimblox (for Arcade and Competitive only).
-COLOR = Pink
+COLOR = custom
 # If you're playing Bad Business, use 0000ff with outline transparency set to 0.
 # NOTE: BLACK IS NOT RECOMMENDED IT WILL AIM AT RANDOM THINGS, RED IS ALSO NOT RECOMMENDED FOR ARSENAL
 
 # Get custom color from https://github.com/Seconb/Roblox-Colorbot/wiki/Custom-Color-Guide. Remember to change COLOR to custom.
-UPPER_COLOR = 0, 0, 0
-LOWER_COLOR = 0, 0, 0
+UPPER_COLOR = 125, 255, 255
+LOWER_COLOR = 111, 123, 2196
