@@ -1,4 +1,4 @@
-from keyboard import is_pressed
+from keyboard import is_pressed # made by a_dodo
 from os import system, chdir
 from os.path import dirname, join
 import bettercam as bc
