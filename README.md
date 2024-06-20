@@ -3,7 +3,7 @@
 - https://github.com/Seconb/Roblox-Colorbot/wiki
 
 # CREDITS
-
+- A Dodo (redid like half of it :) )
 - Seconb (Primary developer)
 - AndrewDarkyy (https://github.com/AndrewDarkyy) (https://discord.gg/thunderclient) (Co-developer, contributed many features such as triggerbot, smoothening, version checker, and optimizations)
 - Befia/Taylor (Contributed some bugfixes and comments to explain certain areas of code, and added basic error handling. Not an actual developer for the project though)
