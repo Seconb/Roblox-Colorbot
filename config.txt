@@ -1,7 +1,7 @@
 [Config]
 
 # Change to any key in the keybinds list (check keybind_list.txt)
-AIM_KEY = X2
+AIM_KEY = Shift
 
 # Change between toggling and holding with the A1M_KEY. By default, pressing A1M_KEY toggles the aimbot on and off. If you press F5, it'll only be active when holding it.
 SWITCH_MODE_KEY = F5
@@ -16,8 +16,8 @@ AIM_FOV = 70
 # Don't make AIM_FOV bigger than CAM_FOV
 
 # Speed on the X and Y axes. Please note that your mouse's DPI and your Roblox in-game sensitivity will highly impact this.
-AIM_SPEED_X = 0.3
-AIM_SPEED_Y = 0.3
+AIM_SPEED_X = 0.4
+AIM_SPEED_Y = 0.4
 # Speed bigger than 1 is not recommended.
 
 # Aim smoothening, makes plays look more legit. CREDITS TO ANDREWDARKYY FOR MAKING THE ORIGINAL METHOD
@@ -45,3 +45,6 @@ COLOR = Pink
 # Get custom color from https://github.com/Seconb/Roblox-Colorbot/wiki/Custom-Color-Guide. Remember to change COLOR to custom.
 UPPER_COLOR = 0, 0, 0
 LOWER_COLOR = 0, 0, 0
+
+# Hides the menu entirely, note that you won't be able to tell if the colorbot is on or not and will have to use Task Manager to close it
+HIDE_CONSOLE = disabled
