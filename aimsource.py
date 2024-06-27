@@ -1,9 +1,14 @@
+import tkinter as tk
+from PIL import Image, ImageDraw, ImageTk
+import numpy as np
+
+# Game automation imports (copied from your initial script)
 from keyboard import is_pressed
 from os import system, chdir
 from os.path import dirname, join
 import bettercam
 import configparser
-from cv2 import dilate, threshold, findContours, RETR_EXTERNAL, CHAIN_APPROX_NONE, contourArea, cvtColor, COLOR_BGR2HSV, inRange, THRESH_BINARY # examines screenshot
+from cv2 import dilate, threshold, findContours, RETR_EXTERNAL, CHAIN_APPROX_NONE, contourArea, cvtColor, COLOR_BGR2HSV, inRange, THRESH_BINARY
 import numpy as np
 import win32api
 from threading import Thread
@@ -16,8 +21,44 @@ from math import sqrt
 import sys
 from keybinds import *
 
+def create_circle_outline_image(radius, color, alpha, outline_width):
+    image = Image.new('RGBA', (2*radius, 2*radius), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    draw.ellipse((outline_width//2, outline_width//2, 2*radius-outline_width//2, 2*radius-outline_width//2), fill=(0, 0, 0, 0), outline=color+(alpha,), width=outline_width)
+    return image
+
+def create_circle(radius, color, alpha):
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    show_fov = config.get("Config", "SHOW_FOV", fallback="disabled").lower() == "enabled"
+
+    if show_fov:
+        circle_alpha = alpha  # Transparency level (0-255)
+        circle_outline_width = 2  # Width of the circle outline
+        circle_outline_image = create_circle_outline_image(radius, color, circle_alpha, circle_outline_width)
+
+        circle_outline_photo = ImageTk.PhotoImage(circle_outline_image)
+
+        overlay_window = tk.Toplevel(root)
+        overlay_window.overrideredirect(True)  # Remove window decorations
+        overlay_window.attributes('-topmost', True)  # Always on top
+        overlay_window.attributes('-transparentcolor', 'black')  # Make the background transparent
+        overlay_window.geometry(f'+{screen_width//2-radius}+{screen_height//2-radius}')  # Center the window
+
+        circle_outline_label = tk.Label(overlay_window, image=circle_outline_photo, bg='black')
+        circle_outline_label.image = circle_outline_photo  # Keep a reference to prevent garbage collection
+        circle_outline_label.pack()
+
+
+# Game automation script starts here
+
 kernel = np.ones((3, 3), np.uint8)
 toggleholdmodes = ("Hold", "Toggle")
+
+# Initialize tkinter
+root = tk.Tk()
+root.withdraw()  # Hide the root window
 
 def log_error(error_message):
     timestamp = strftime('%Y-%m-%d %H:%M:%S', localtime())
@@ -64,7 +105,7 @@ except:
     openwebpage("https://discord.gg/thunderclient")
 '''
 
-try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
+''' try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
     if not "12" in urlopen("https://raw.githubusercontent.com/Seconb/Roblox-Colorbot/main/version.txt").read().decode("utf-8"):
         print("Outdated version, redownload: https://github.com/Seconb/Roblox-Colorbot/releases")
 except Exception as e:
@@ -72,7 +113,7 @@ except Exception as e:
     log_error(e)
     print("Continuing anyway!")
     sleep(5)
-    pass
+    pass '''
 
 try:
     config = configparser.ConfigParser()
@@ -94,6 +135,33 @@ def rbxfocused():
         log_error(e)
         exit()
 
+# Function to create a transparent circle outline image
+def create_circle_outline_image(radius, color, alpha, outline_width):
+    image = Image.new('RGBA', (2*radius, 2*radius), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    draw.ellipse((outline_width//2, outline_width//2, 2*radius-outline_width//2, 2*radius-outline_width//2), fill=(0, 0, 0, 0), outline=color+(alpha,), width=outline_width)
+    return image
+
+def create_circle(radius, color):
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    circle_alpha = 150  # Transparency level (0-255)
+    circle_outline_width = 2  # Width of the circle outline
+    circle_outline_image = create_circle_outline_image(radius, color, circle_alpha, circle_outline_width)
+
+    circle_outline_photo = ImageTk.PhotoImage(circle_outline_image)
+
+    overlay_window = tk.Toplevel(root)
+    overlay_window.overrideredirect(True)  # Remove window decorations
+    overlay_window.attributes('-topmost', True)  # Always on top
+    overlay_window.attributes('-transparentcolor', 'black')  # Make the background transparent
+    overlay_window.geometry(f'+{screen_width//2-radius}+{screen_height//2-radius}')  # Center the window
+
+    circle_outline_label = tk.Label(overlay_window, image=circle_outline_photo, bg='black')
+    circle_outline_label.image = circle_outline_photo  # Keep a reference to prevent garbage collection
+    circle_outline_label.pack()
+
 def change_config_setting(setting_name, new_value):
     try:
         config.set("Config", setting_name, str(new_value))
@@ -114,6 +182,7 @@ def load():
         config = configparser.ConfigParser()
         config.optionxform = str
         config.read(config_file_path)
+        
     except Exception as e:
         print("Error reading config:", e)
         log_error(e)
@@ -138,6 +207,7 @@ def load():
         SMOOTH_FACTOR = float(config.get("Config", "SMOOTH_FACTOR"))
         UPPER_COLOR = tuple(map(int, config.get("Config", "UPPER_COLOR").split(', ')))
         LOWER_COLOR = tuple(map(int, config.get("Config", "LOWER_COLOR").split(', ')))
+        SHOW_FOV = config.get("Config", "SHOW_FOV")
         HIDE_CONSOLE = config.get("Config", "HIDE_CONSOLE")
         if HIDE_CONSOLE != "disabled":
             import ctypes
@@ -163,8 +233,8 @@ def load():
             lower = np.array((150, 255, 229), dtype="uint8")
         if COLOR.lower() == "green":
             colorname = Fore.GREEN
-            upper = np.array((60, 255, 229), dtype="uint8")
-            lower = np.array((60, 255, 229), dtype="uint8")
+            upper = np.array((0, 255, 0), dtype="uint8")
+            lower = np.array((0, 255, 0), dtype="uint8")
         if COLOR.lower() == "cyan":
             colorname = Fore.CYAN
             upper = np.array((90, 255, 229), dtype="uint8")
@@ -196,6 +266,11 @@ def load():
         camera = bettercam.create(output_idx=0, output_color="BGR", region=region)
         center = CAM_FOV / 2
         
+        if SHOW_FOV:
+           create_circle(CAM_FOV // 2, (0, 0, 255)) 
+           create_circle(AIM_FOV // 2, (255, 0, 0))  
+
+        
 
     except Exception as e:
         print("Error loading settings:", e)
@@ -214,7 +289,7 @@ def clicked(KEY):
 class trb0t:
     def __init__(self):
         self.AIMtoggled = False
-        self.switchmode = 1 
+        self.switchmode = 0
         self.__clicks = 0
         self.__shooting = False
 
@@ -294,17 +369,8 @@ class trb0t:
 
 
 def print_banner(b0t: trb0t):
-    if HIDE_CONSOLE != "disabled":
         try:
-            system("cls") 
-            print(
-                f"{Style.BRIGHT}{Fore.CYAN}\n"
-                f"    _   ___  ___ ___ _  _   _   _       ___ ___  _    ___  ___ ___  ___ _____\n"
-                f"   /_\ | _ \/ __| __| \| | /_\ | |     / __/ _ \| |  / _ \| _ \ _ )/ _ \_   _|\n"
-                f"  / _ \|   /\__ \ _|| .` |/ _ \| |__  | (_| (_) | |_| (_) |   / _ \ (_) || |  \n"
-                f" /_/ \_\_|_\|___/___|_|\_/_/ \_\____|  \___\___/|____\___/|_|_\___/\___/ |_|\n"
-                f"{Style.RESET_ALL}"                                                                        
-            )
+            system("cls")
             print("====== Controls ======")
             print(f"Activate colorbot    : {Fore.YELLOW}{AIM_KEY}{Style.RESET_ALL}")
             if SWITCH_MODE_KEY != "disabled":
@@ -340,18 +406,10 @@ def print_banner(b0t: trb0t):
                 f"Aim Activated        : {(Fore.GREEN if b0t.AIMtoggled else Fore.RED)}{b0t.AIMtoggled}{Style.RESET_ALL}"
             )
             print(f"Enemy Color          : {str(colorname + COLOR)}{Style.RESET_ALL}")
-            print("======================")
-            print(
-                f"{Style.BRIGHT}{Fore.CYAN}"
-                "Join the official Discord server at discord.gg/thunderclient !\n"
-                "If you didn't download this from https://github.com/Seconb/Roblox-Colorbot, it's not legit!"
-                f"{Style.RESET_ALL}"
-            )
         except Exception as e:
             print("Error printing banner:", e)
             log_error(e)
             exit()
-
 
 if __name__ == "__main__":
     b0t = trb0t()
@@ -388,8 +446,10 @@ if __name__ == "__main__":
                         if clicked(AIM_KEY):
                             b0t.AIMtoggle()
                             print_banner(b0t)
+            root.update()
             sleep(0.02)
     except Exception as e:
         print("An error occurred:", e)
         log_error(e)
         exit()
+
