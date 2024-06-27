@@ -34,5 +34,8 @@ COLOR = Pink
 UPPER_COLOR = 0, 0, 0
 LOWER_COLOR = 0, 0, 0
 
+# Shows an overlay of your FOV size.
+SHOW_FOV = enabled
+
 # Hides the menu (you can't see anything and have to use Task Manager to close Python)
 HIDE_CONSOLE = disabled
