@@ -3,7 +3,7 @@ from os import system, chdir
 from os.path import dirname, join
 import bettercam
 import configparser
-from cv2 import dilate, threshold, findContours, RETR_EXTERNAL, CHAIN_APPROX_NONE, contourArea, cvtColor, COLOR_BGR2HSV, inRange, THRESH_BINARY # examines screenshot
+from cv2 import dilate, threshold, findContours, RETR_EXTERNAL, CHAIN_APPROX_NONE, contourArea, cvtColor, COLOR_BGR2HSV, inRange, THRESH_BINARY
 import numpy as np
 import win32api
 from threading import Thread
@@ -15,9 +15,13 @@ from webbrowser import open as openwebpage
 from math import sqrt
 import sys
 from keybinds import *
+import tkinter as tk
+from PIL import Image, ImageDraw, ImageTk
 
 kernel = np.ones((3, 3), np.uint8)
 toggleholdmodes = ("Hold", "Toggle")
+
+
 
 def log_error(error_message):
     timestamp = strftime('%Y-%m-%d %H:%M:%S', localtime())
@@ -65,7 +69,7 @@ except:
 '''
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
-    if not "12" in urlopen("https://raw.githubusercontent.com/Seconb/Roblox-Colorbot/main/version.txt").read().decode("utf-8"):
+    if not "13" in urlopen("https://raw.githubusercontent.com/Seconb/Roblox-Colorbot/main/version.txt").read().decode("utf-8"):
         print("Outdated version, redownload: https://github.com/Seconb/Roblox-Colorbot/releases")
         print("Press Enter to continue anyway...")
         while True:
@@ -111,7 +115,7 @@ def change_config_setting(setting_name, new_value):
         exit()
 
 def load():
-    global center, screenshot, camera, AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE, HIDE_CONSOLE
+    global center, screenshot, camera, CAM_FOV_COLOR, AIM_FOV_COLOR, SHOW_FOV, AIM_KEY, SWITCH_MODE_KEY, FOV_KEY_UP, FOV_KEY_DOWN, CAM_FOV, AIM_OFFSET_Y, AIM_OFFSET_X, AIM_SPEED_X, AIM_SPEED_Y, upper, lower, UPDATE_KEY, AIM_FOV, BINDMODE, COLOR, colorname, TRIGGERBOT, TRIGGERBOT_DELAY, SMOOTHENING, SMOOTH_FACTOR, TRIGGERBOT_DISTANCE, HIDE_CONSOLE
     system("title Colorbot")
     
     try:
@@ -142,8 +146,11 @@ def load():
         SMOOTH_FACTOR = float(config.get("Config", "SMOOTH_FACTOR"))
         UPPER_COLOR = tuple(map(int, config.get("Config", "UPPER_COLOR").split(', ')))
         LOWER_COLOR = tuple(map(int, config.get("Config", "LOWER_COLOR").split(', ')))
+        CAM_FOV_COLOR = tuple(map(int, config.get("Config", "CAM_FOV_COLOR").split(', ')))
+        AIM_FOV_COLOR = tuple(map(int, config.get("Config", "AIM_FOV_COLOR").split(', ')))
         HIDE_CONSOLE = config.get("Config", "HIDE_CONSOLE")
-        if HIDE_CONSOLE == "enabled":
+        SHOW_FOV = config.get("Config", "SHOW_FOV")
+        if HIDE_CONSOLE.lower() == "enabled":
             import ctypes
             import win32gui
             whnd = ctypes.windll.kernel32.GetConsoleWindow()
@@ -214,6 +221,35 @@ def clicked(KEY):
         print("Error checking key state:", e)
         log_error(e)
         exit()
+
+def create_circle_outline_image(radius, color, alpha, outline_width):
+    image = Image.new('RGBA', (2*radius, 2*radius), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    draw.ellipse((outline_width//2, outline_width//2, 2*radius-outline_width//2, 2*radius-outline_width//2), fill=(0, 0, 0, 0), outline=color+(alpha,), width=outline_width)
+    return image
+
+def create_circle(radius, color, alpha):
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    show_fov = config.get("Config", "SHOW_FOV", fallback="disabled").lower() == "enabled"
+
+    if show_fov:
+        circle_alpha = alpha  # Transparency level (0-255)
+        circle_outline_width = 2  # Width of the circle outline
+        circle_outline_image = create_circle_outline_image(radius, color, circle_alpha, circle_outline_width)
+
+        circle_outline_photo = ImageTk.PhotoImage(circle_outline_image)
+
+        overlay_window = tk.Toplevel(root)
+        overlay_window.overrideredirect(True)  # Remove window decorations
+        overlay_window.attributes('-topmost', True)  # Always on top
+        overlay_window.attributes('-transparentcolor', 'black')  # Make the background transparent
+        overlay_window.geometry(f'+{screen_width//2-radius}+{screen_height//2-radius}')  # Center the window
+
+        circle_outline_label = tk.Label(overlay_window, image=circle_outline_photo, bg='black')
+        circle_outline_label.image = circle_outline_photo  # Keep a reference to prevent garbage collection
+        circle_outline_label.pack()
 
 class trb0t:
     def __init__(self):
@@ -358,9 +394,15 @@ def print_banner(b0t: trb0t):
 
 if __name__ == "__main__":
     b0t = trb0t()
+    root = tk.Tk()
+    root.withdraw()
+    if SHOW_FOV.lower() == "enabled":
+        create_circle(CAM_FOV // 2, (CAM_FOV_COLOR), 255)
+        create_circle(AIM_FOV // 2, (AIM_FOV_COLOR), 255)
     try:
         print_banner(b0t)
         while True:
+            root.update()
             if SWITCH_MODE_KEY != "disabled" and is_pressed(SWITCH_MODE_KEY):
                 b0t.modeswitch()
                 print_banner(b0t)
