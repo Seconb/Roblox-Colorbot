@@ -36,3 +36,8 @@ LOWER_COLOR = 0, 0, 0
 
 # Hides the menu (you can't see anything and have to use Task Manager to close Python)
 HIDE_CONSOLE = disabled
+
+SHOW_FOV = enabled
+CAM_FOV_COLOR = 0, 0, 255
+AIM_FOV_COLOR = 255, 0, 0
+# These colors specifically are RGB. Custom colors are HSV.
