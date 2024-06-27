@@ -139,7 +139,7 @@ def load():
         UPPER_COLOR = tuple(map(int, config.get("Config", "UPPER_COLOR").split(', ')))
         LOWER_COLOR = tuple(map(int, config.get("Config", "LOWER_COLOR").split(', ')))
         HIDE_CONSOLE = config.get("Config", "HIDE_CONSOLE")
-        if HIDE_CONSOLE != "disabled":
+        if HIDE_CONSOLE == "enabled":
             import ctypes
             import win32gui
             whnd = ctypes.windll.kernel32.GetConsoleWindow()
@@ -294,63 +294,62 @@ class trb0t:
 
 
 def print_banner(b0t: trb0t):
-    if HIDE_CONSOLE != "disabled":
-        try:
-            system("cls") 
-            print(
-                f"{Style.BRIGHT}{Fore.CYAN}\n"
-                f"    _   ___  ___ ___ _  _   _   _       ___ ___  _    ___  ___ ___  ___ _____\n"
-                f"   /_\ | _ \/ __| __| \| | /_\ | |     / __/ _ \| |  / _ \| _ \ _ )/ _ \_   _|\n"
-                f"  / _ \|   /\__ \ _|| .` |/ _ \| |__  | (_| (_) | |_| (_) |   / _ \ (_) || |  \n"
-                f" /_/ \_\_|_\|___/___|_|\_/_/ \_\____|  \___\___/|____\___/|_|_\___/\___/ |_|\n"
-                f"{Style.RESET_ALL}"                                                                        
-            )
-            print("====== Controls ======")
-            print(f"Activate colorbot    : {Fore.YELLOW}{AIM_KEY}{Style.RESET_ALL}")
-            if SWITCH_MODE_KEY != "disabled":
-                print(f"Switch toggle/hold   : {Fore.YELLOW}{SWITCH_MODE_KEY}{Style.RESET_ALL}")
-            if UPDATE_KEY != "disabled":
-                print(f"Update Config        : {Fore.YELLOW}{UPDATE_KEY}{Style.RESET_ALL}")
-            if FOV_KEY_UP != "disabled" and FOV_KEY_DOWN != "disabled":
-                print(f"Change FOV           : {Fore.YELLOW}{FOV_KEY_UP}/{FOV_KEY_DOWN}{Style.RESET_ALL}")
-            print("==== Information =====")
-            print(f"Toggle/Hold Mode     : {Fore.CYAN}{toggleholdmodes[b0t.switchmode]}{Style.RESET_ALL}")
-            print(f"Aim FOV              : {Fore.CYAN}{AIM_FOV}{Style.RESET_ALL}")
-            print(f"Cam FOV              : {Fore.CYAN}{CAM_FOV}{Style.RESET_ALL}")
-            if TRIGGERBOT != "disabled":
-                print(f"Triggerbot           : {Fore.GREEN}On{Style.RESET_ALL}")
-            else:
-                print(f"Triggerbot           : {Fore.RED}Off{Style.RESET_ALL}")
-            if TRIGGERBOT_DELAY != 0:
-                print(f"Triggerbot Delay     : {Fore.GREEN}{TRIGGERBOT_DELAY}{Style.RESET_ALL}")
-            if SMOOTHENING != "disabled":
-                print(f"Smoothening          : {Fore.GREEN}On{Style.RESET_ALL}")
-                print(f"Smoothening Factor   : {Fore.CYAN}{SMOOTH_FACTOR}{Style.RESET_ALL}")
-            else:
-                print(f"Smoothening          : {Fore.RED}Off{Style.RESET_ALL}")
-            if TRIGGERBOT_DELAY != 0:
-                print(f"Triggerbot Delay     : {Fore.GREEN}{TRIGGERBOT_DELAY}{Style.RESET_ALL}")
-            print(
-                f"Aim Speed            : {Fore.CYAN}X: {AIM_SPEED_X} Y: {AIM_SPEED_Y}{Style.RESET_ALL}"
-            )
-            print(
-                f"Aim Offset           : {Fore.CYAN}X: {AIM_OFFSET_X} Y: {AIM_OFFSET_Y}{Style.RESET_ALL}"
-            )
-            print(
-                f"Aim Activated        : {(Fore.GREEN if b0t.AIMtoggled else Fore.RED)}{b0t.AIMtoggled}{Style.RESET_ALL}"
-            )
-            print(f"Enemy Color          : {str(colorname + COLOR)}{Style.RESET_ALL}")
-            print("======================")
-            print(
-                f"{Style.BRIGHT}{Fore.CYAN}"
-                "Join the official Discord server at discord.gg/thunderclient !\n"
-                "If you didn't download this from https://github.com/Seconb/Roblox-Colorbot, it's not legit!"
-                f"{Style.RESET_ALL}"
-            )
-        except Exception as e:
-            print("Error printing banner:", e)
-            log_error(e)
-            exit()
+    try:
+        system("cls") 
+        print(
+            f"{Style.BRIGHT}{Fore.CYAN}\n"
+            f"    _   ___  ___ ___ _  _   _   _       ___ ___  _    ___  ___ ___  ___ _____\n"
+            f"   /_\ | _ \/ __| __| \| | /_\ | |     / __/ _ \| |  / _ \| _ \ _ )/ _ \_   _|\n"
+            f"  / _ \|   /\__ \ _|| .` |/ _ \| |__  | (_| (_) | |_| (_) |   / _ \ (_) || |  \n"
+            f" /_/ \_\_|_\|___/___|_|\_/_/ \_\____|  \___\___/|____\___/|_|_\___/\___/ |_|\n"
+            f"{Style.RESET_ALL}"                                                                        
+        )
+        print("====== Controls ======")
+        print(f"Activate colorbot    : {Fore.YELLOW}{AIM_KEY}{Style.RESET_ALL}")
+        if SWITCH_MODE_KEY != "disabled":
+            print(f"Switch toggle/hold   : {Fore.YELLOW}{SWITCH_MODE_KEY}{Style.RESET_ALL}")
+        if UPDATE_KEY != "disabled":
+            print(f"Update Config        : {Fore.YELLOW}{UPDATE_KEY}{Style.RESET_ALL}")
+        if FOV_KEY_UP != "disabled" and FOV_KEY_DOWN != "disabled":
+            print(f"Change FOV           : {Fore.YELLOW}{FOV_KEY_UP}/{FOV_KEY_DOWN}{Style.RESET_ALL}")
+        print("==== Information =====")
+        print(f"Toggle/Hold Mode     : {Fore.CYAN}{toggleholdmodes[b0t.switchmode]}{Style.RESET_ALL}")
+        print(f"Aim FOV              : {Fore.CYAN}{AIM_FOV}{Style.RESET_ALL}")
+        print(f"Cam FOV              : {Fore.CYAN}{CAM_FOV}{Style.RESET_ALL}")
+        if TRIGGERBOT != "disabled":
+            print(f"Triggerbot           : {Fore.GREEN}On{Style.RESET_ALL}")
+        else:
+            print(f"Triggerbot           : {Fore.RED}Off{Style.RESET_ALL}")
+        if TRIGGERBOT_DELAY != 0:
+            print(f"Triggerbot Delay     : {Fore.GREEN}{TRIGGERBOT_DELAY}{Style.RESET_ALL}")
+        if SMOOTHENING != "disabled":
+            print(f"Smoothening          : {Fore.GREEN}On{Style.RESET_ALL}")
+            print(f"Smoothening Factor   : {Fore.CYAN}{SMOOTH_FACTOR}{Style.RESET_ALL}")
+        else:
+            print(f"Smoothening          : {Fore.RED}Off{Style.RESET_ALL}")
+        if TRIGGERBOT_DELAY != 0:
+            print(f"Triggerbot Delay     : {Fore.GREEN}{TRIGGERBOT_DELAY}{Style.RESET_ALL}")
+        print(
+            f"Aim Speed            : {Fore.CYAN}X: {AIM_SPEED_X} Y: {AIM_SPEED_Y}{Style.RESET_ALL}"
+        )
+        print(
+            f"Aim Offset           : {Fore.CYAN}X: {AIM_OFFSET_X} Y: {AIM_OFFSET_Y}{Style.RESET_ALL}"
+        )
+        print(
+            f"Aim Activated        : {(Fore.GREEN if b0t.AIMtoggled else Fore.RED)}{b0t.AIMtoggled}{Style.RESET_ALL}"
+        )
+        print(f"Enemy Color          : {str(colorname + COLOR)}{Style.RESET_ALL}")
+        print("======================")
+        print(
+            f"{Style.BRIGHT}{Fore.CYAN}"
+            "Join the official Discord server at discord.gg/thunderclient !\n"
+            "If you didn't download this from https://github.com/Seconb/Roblox-Colorbot, it's not legit!"
+            f"{Style.RESET_ALL}"
+        )
+    except Exception as e:
+        print("Error printing banner:", e)
+        log_error(e)
+        exit()
 
 
 if __name__ == "__main__":
