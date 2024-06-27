@@ -67,6 +67,10 @@ except:
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
     if not "12" in urlopen("https://raw.githubusercontent.com/Seconb/Roblox-Colorbot/main/version.txt").read().decode("utf-8"):
         print("Outdated version, redownload: https://github.com/Seconb/Roblox-Colorbot/releases")
+        print("Press Enter to continue anyway...")
+        while True:
+            if is_pressed("Enter"):
+                break
 except Exception as e:
     print("Error checking update: ", e)
     log_error(e)
