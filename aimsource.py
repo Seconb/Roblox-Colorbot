@@ -254,7 +254,7 @@ def create_circle(radius, color, alpha):
 class trb0t:
     def __init__(self):
         self.AIMtoggled = False
-        self.switchmode = 1 
+        self.switchmode = 0 # change this value to 1 if you want it on toggle by DEFAULT 
         self.__clicks = 0
         self.__shooting = False
 
