@@ -5,13 +5,16 @@
 # Change to any key in keybind_list.txt
 AIM_KEY = Shift
 
+# Do you want the aimbot to toggle on and off, or only be active when you hold the aim key? The switch mode key below helps switch mods btw.
+TOGGLE_HOLD_MODE = toggle
+
 # Change these to any KEYBOARD key (no mouse buttons)
 SWITCH_MODE_KEY = F5
 UPDATE_KEY = F6
 FOV_KEY_UP = ctrl+]
 FOV_KEY_DOWN = ctrl+[
 
-CAM_FOV = 95
+CAM_FOV = 90
 AIM_FOV = 70
 AIM_SPEED_X = 0.4
 AIM_SPEED_Y = 0.4
@@ -37,7 +40,10 @@ LOWER_COLOR = 0, 0, 0
 # Hides the menu (you can't see anything and have to use Task Manager to close Python)
 HIDE_CONSOLE = disabled
 
+# These colors specifically are RGB. Custom colors are HSV.
 SHOW_FOV = enabled
 CAM_FOV_COLOR = 0, 0, 255
 AIM_FOV_COLOR = 255, 0, 0
-# These colors specifically are RGB. Custom colors are HSV.
+
+# Bettercam is better, mss is less buggy. Change to mss if Bettercam is buggy.
+CAM_TYPE = bettercam
