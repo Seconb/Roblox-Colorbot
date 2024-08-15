@@ -57,13 +57,13 @@ try:
         buffer2 = open(last_launch_path, "w+")
         buffer2.write(str(currenttime))
         buffer2.close()
-        openwebpage("https://discord.gg/thunderclient")
+        openwebpage("https://discord.com/invite/K8gdWHthVw")
         buffer.close()
 except:
     buffer = open(last_launch_path, "w+")
     buffer.write(str(currenttime))
     buffer.close()
-    openwebpage("https://discord.gg/thunderclient")
+    openwebpage("https://discord.com/invite/K8gdWHthVw")
 '''
 
 try: # checks for updates using the version number we defined earlier, pasted from andrewdarkyy cuz im lazy and his colorbot is just a modded version of mine so like who cares
@@ -403,7 +403,7 @@ def print_banner(bot: trbot):
         print("        ======================")
         print(
             f"{Style.BRIGHT}{Fore.CYAN}"
-            "\nJoin the Discord: discord.gg/thunderclient !\n"
+            "\nJoin the Discord: discord.com/invite/K8gdWHthVw !\n"
             "If this isn't from github.com/Seconb/Roblox-Colorbot, it's not legit!"
             f"{Style.RESET_ALL}"
         )
