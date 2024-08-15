@@ -5,7 +5,7 @@
 # CREDITS
 
 - Seconb (Primary developer)
-- AndrewDarkyy (https://github.com/AndrewDarkyy) (https://discord.gg/thunderclient) (Co-developer, contributed many features such as triggerbot, smoothening, version checker, and optimizations)
+- AndrewDarkyy (https://github.com/AndrewDarkyy) (https://discord.com/invite/K8gdWHthVw) (Co-developer, contributed many features such as triggerbot, smoothening, version checker, and optimizations)
 - Befia/Taylor (Contributed some bugfixes and comments to explain certain areas of code, and added basic error handling. Not an actual developer for the project though)
 - Hariangr for their HSVRangeTool (https://github.com/hariangr/HsvRangeTool)
 - PossibIy (Contributed the Show FOV feature) (https://github.com/possibIy)
