@@ -1,0 +1,108 @@
+Here is a list of all the working keybinds:
+
+Left Click
+Right Click
+Middle Click
+X1 # front side mouse button
+X2 # back side mouse button
+Backspace
+Tab
+Clear
+Enter
+Shift
+Ctrl
+Alt
+Pause
+Caps Lock
+Esc
+Spacebar
+Page Up
+Page Down
+End
+Home
+Left Arrow
+Up Arrow
+Right Arrow
+Down Arrow
+Select
+Print
+Execute
+Print Screen
+Ins
+Del
+Help
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V
+W
+X
+Y
+Z
+Left Windows
+Right Windows
+Applications
+Numeric keypad 0
+Numeric keypad 1
+Numeric keypad 2
+Numeric keypad 3
+Numeric keypad 4
+Numeric keypad 5
+Numeric keypad 6
+Numeric keypad 7
+Numeric keypad 8
+Numeric keypad 9
+Multiply
+Add
+Separator
+Subtract
+Decimal
+Divide
+F1
+F2
+F3
+F4
+F5
+F6
+F7
+F8
+F9
+F10
+F11
+F12
+Num Lock
+Scroll Lock
+Left Shift
+Right Shift
+Left Control
+Right Control
+Left Alt
+Right Alt
