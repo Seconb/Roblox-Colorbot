@@ -1,4 +1,4 @@
-# outdated
+# possibly outdated
 Please install from the [main repo](https://github.com/Seconb/Roblox-Colorbot). This is just for bug-fixing and contributions.
 I have a C# version of seconb's colorbot, which also could be outdated and not updated as often - but just for fun and readability, its [here](https://github.com/TaylorIsBlue/Csharp-Colorbot)
 
