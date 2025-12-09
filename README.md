@@ -1,5 +1,5 @@
 # THIS PROJECT WILL NO LONGER RECEIVE MAINTENANCE OR SUPPORT
-- The colorbot is currently broken for unknown reasons.
+- The colorbot is currently broken for unknown reasons. (Does not work for me, might work for you!)
 - For those attempting to fix it, my troubleshooting so far has found: Everything works except when the script checks if any enemies are in the image, it never finds them. (if len(contours) != 0: never returns true)
 - The enemy outline colors are still accurate, the screenshotting system works and takes correct screenshots, it isn't an issue with checking if the user has Roblox focused, and it isn't that Roblox began blocking mouse_event.
 
