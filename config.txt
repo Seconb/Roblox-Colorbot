@@ -26,7 +26,7 @@ SMOOTH_FACTOR = 1
 
 TRIGGERBOT = disabled
 TRIGGERBOT_DELAY = 0
-TRIGGERBOT_DISTANCE = 10
+TRIGGERBOT_DISTANCE = 50
 
 # Set the color of enemies to aim at. Yellow, Blue, Pink/Magenta/Purple, Green, Cyan, Red, Black, or Aimblox (for Arcade and Competitive only).
 COLOR = Pink
@@ -34,8 +34,8 @@ COLOR = Pink
 # Black is NOT recommended at all and sucks very bad. Red is also bad for Arsenal.
 
 # Get custom color from https://github.com/Seconb/Roblox-Colorbot/wiki/Custom-Color-Guide. Remember to change COLOR to custom.
-UPPER_COLOR = 0, 0, 0
-LOWER_COLOR = 0, 0, 0
+UPPER_COLOR = 0, 0, 255
+LOWER_COLOR = 0, 0, 255
 
 # Hides the menu (you can't see anything and have to use Task Manager to close Python)
 HIDE_CONSOLE = disabled
@@ -43,7 +43,8 @@ HIDE_CONSOLE = disabled
 # These colors specifically are RGB. Custom colors are HSV.
 SHOW_FOV = enabled
 CAM_FOV_COLOR = 0, 0, 255
-AIM_FOV_COLOR = 255, 0, 0
+AIM_FOV_COLOR = 0, 0, 255
 
 # Bettercam is better, mss is less buggy. Change to mss if Bettercam is buggy.
 CAM_TYPE = bettercam
+
